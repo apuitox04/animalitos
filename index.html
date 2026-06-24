@@ -80,11 +80,11 @@
   .count-title{text-align:center; font-weight:600; font-size:clamp(20px,5vw,26px); margin:2px 0 12px}
   .count-title .nm{color:var(--accent)}
   .dots{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:6px 4px 16px; cursor:pointer}
-  .dots .item{width:var(--dot,54px); height:var(--dot,54px); display:grid; place-items:center;
+  .dots .item{width:54px; height:54px; display:grid; place-items:center;
     opacity:.22; transform:scale(.6); transition:opacity .25s ease, transform .25s cubic-bezier(.3,1.5,.5,1)}
   .dots .item.on{opacity:1; transform:scale(1)}
-  .dots .item .emoji{font-size:calc(var(--dot,54px)*.74); line-height:1}
-  .dots .item img{width:var(--dot,54px);height:var(--dot,54px);object-fit:cover;border-radius:50%;border:2px solid #fff;
+  .dots .item .emoji{font-size:40px; line-height:1}
+  .dots .item img{width:50px;height:50px;object-fit:cover;border-radius:50%;border:3px solid #fff;
     box-shadow:0 4px 8px rgba(0,0,0,.16)}
   .fact{background:#F6F2FF; border-radius:18px; padding:13px 15px; text-align:center;
     font-size:clamp(16px,4.2vw,19px); color:#4a3b5c; line-height:1.35; margin:2px 4px 16px}
@@ -114,17 +114,21 @@
   }
 
   .hbtns{display:flex; gap:8px}
+  .langrow{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:0 0 18px}
+  .langflag{appearance:none;border:2px solid rgba(255,255,255,.6);cursor:pointer;font-family:inherit;
+    font-weight:700;font-size:16px;color:#5B3A8C;background:rgba(255,255,255,.85);
+    padding:9px 14px;border-radius:16px}
+  .langflag.on{background:#fff;border-color:#fff;box-shadow:0 6px 14px rgba(0,0,0,.18); transform:translateY(-1px)}
+  .langflag:active{transform:scale(.96)}
   #game{position:fixed; inset:0; z-index:50; display:none;
     background:linear-gradient(180deg,#FFE9F0 0%, #F3ECFF 45%, #E7F6FF 100%)}
   #game.show{display:block; overflow:auto; animation:fade .18s ease}
   .gwrap{max-width:680px; margin:0 auto; padding:16px 16px 44px; min-height:100%}
   .gtop{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px}
-  .gscore{background:#fff; border-radius:16px; padding:9px 16px; font-weight:700; font-size:20px;
-    color:var(--c2); box-shadow:var(--shadow)}
-  .gprompt{background:#fff; border-radius:26px; padding:16px 14px 18px; text-align:center;
-    box-shadow:var(--shadow); margin-bottom:18px}
+  .gscore{background:#fff; border-radius:16px; padding:9px 16px; font-weight:700; font-size:20px; color:var(--c2); box-shadow:var(--shadow)}
+  .gprompt{background:#fff; border-radius:26px; padding:16px 14px 18px; text-align:center; box-shadow:var(--shadow); margin-bottom:18px}
   .gprompt .lab{font-size:17px; color:#8a7b9c; font-weight:600}
-  .gname{font-size:clamp(30px,9vw,46px); font-weight:700; color:var(--c5); margin:4px 0 10px; line-height:1}
+  .gname{font-size:clamp(28px,9vw,46px); font-weight:700; color:var(--c5); margin:4px 0 10px; line-height:1}
   .gsay{appearance:none;border:none;cursor:pointer;background:var(--c4);color:#fff;border-radius:50%;
     width:62px;height:62px;font-size:28px;box-shadow:var(--shadow); display:inline-grid; place-items:center}
   .gsay:active{transform:scale(.93)}
@@ -140,12 +144,14 @@
   .gchoice.dim{opacity:.4}
   @keyframes gpop{0%{transform:scale(1)}50%{transform:scale(1.09)}100%{transform:scale(1)}}
   @keyframes gshake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
-  .gmsg{text-align:center; font-weight:700; font-size:clamp(18px,5vw,24px); min-height:30px;
-    margin:16px 4px 4px; color:var(--ink)}
+  .gmsg{text-align:center; font-weight:700; font-size:clamp(18px,5vw,24px); min-height:30px; margin:16px 4px 4px; color:var(--ink)}
   .start .play2{appearance:none;border:none;cursor:pointer;font-family:inherit;font-weight:700;
     font-size:20px;color:#5B3A8C;background:#fff;padding:14px 26px;border-radius:22px;margin-top:14px;
     box-shadow:0 8px 0 #D9C8F0, 0 12px 22px rgba(0,0,0,.18)}
   .start .play2:active{transform:translateY(5px); box-shadow:0 3px 0 #D9C8F0, 0 7px 12px rgba(0,0,0,.18)}
+  .dots .item{width:var(--dot,54px); height:var(--dot,54px)}
+  .dots .item .emoji{font-size:calc(var(--dot,54px)*.74)}
+  .dots .item img{width:var(--dot,54px);height:var(--dot,54px);border:2px solid #fff}
 </style>
 </head>
 <body>
@@ -154,7 +160,7 @@
 <div class="wrap">
   <header>
     <div class="brand"><span class="dot">🐾</span><h1 id="brandTitle">Animalitos y Números</h1></div>
-    <div class="hbtns"><button id="gameBtn" class="icon-btn" aria-label="Adivinanzas">🎮</button><button id="mute" class="icon-btn" aria-label="Silenciar">🔊</button></div>
+    <div class="hbtns"><button id="langBtn" class="icon-btn" aria-label="Idioma">🇪🇸</button><button id="gameBtn" class="icon-btn" aria-label="Juego">🎮</button><button id="mute" class="icon-btn" aria-label="Silenciar">🔊</button></div>
   </header>
   <div id="grid" class="grid"></div>
 </div>
@@ -177,9 +183,10 @@
   <div class="box">
     <div class="emojis">🐶🐮🦁</div>
     <h2 id="startTitle">¡A jugar!</h2>
-    <p>Tocá un animalito para contar y oír su sonido.</p>
-    <button class="play" id="playBtn">🔢 Contar animalitos</button>
-    <button class="play2" id="guessBtn">🎈 Adivina el animal</button>
+    <p id="startSub">Tocá un animalito para contar y oír su sonido.</p>
+    <div class="langrow"><button class="langflag" data-l="es">🇪🇸 Español</button><button class="langflag" data-l="en">🇬🇧 English</button><button class="langflag" data-l="pt">🇧🇷 Português</button></div>
+    <button class="play" id="playBtn">🔢 Contar</button>
+    <button class="play2" id="guessBtn">🎈 Adivinar</button>
   </div>
 </div>
 
@@ -190,7 +197,7 @@
       <div class="gscore" id="gameScore">⭐ 0</div>
     </div>
     <div class="gprompt">
-      <div class="lab">¿Dónde está...</div>
+      <div class="lab" id="gameLab">¿Dónde está...</div>
       <div class="gname" id="gameName">—</div>
       <button class="gsay" id="gameSay" aria-label="Repetir">🔊</button>
     </div>
@@ -369,143 +376,148 @@ const REAL = {
 "lobo":"data:audio/mpeg;base64,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62/9Ml0H+o4Wpso0c2NKKCKltTU3Oh4oMJVBMisBMsX6jySM6VXH5qXWaCHqefkMefxRIuODgIMOQ2OSyDMvwfMAwPBwCoJCQBYRSORAquX/84LE9TKjDlSi7tsUhLKFDAEB4gBA1sfU+UouemySgk7y/yk0BSMiFwcBZa1hscRNSGQddBpv5TkQuajMMvxTP9LQu+C4RMSN2H8lWc9e1HXigGNp6AGGaoODhqWzlPzGr+6r+Z1Pr4XXYgylyRKNzxu/qMVK1j1Rfzx8QAN4RocxcL1kvWkVC6PYqLW/Q9h0NP1c4iaoiekqbpG+lxdh02QQB/zlW/afmYhmF24mpoomCAIYHcppKBGcwWYHBJjYIhwFgtmS+2YP+qpJngW+YP/zgsTuL8LaSADumxUASTAI9n+DaNxGCDFTlJWGTUFZEiIoyF8pTUeuEsJBE9u8VjEumHRsSK3S7mH6wlYyoLiqMQ9ILFJAs7arbpIm/MrHHY2zWUzd6pFjblF6koaeivzUYhUkmkv/sXy6atdtLUxeLwOILmYEqi362TSGcIxInkm+ZG3NiEj/5k+MQ+v5qpPrMi8HbvVq/9IWU1Lsrs7ZtZOzbZEjkiKCQBMEkHAW0GCARF8DBsADAAAXQeJtntiSwsAKXJ+umYhD+cpPiaZo//OCxPMu+w5ADOabFC0ZnjXDDCzBhi2YOCgwCBhK+negttVfGYDDRJiNnGBqeZa7hDUWmneclkZiQw8Ac9gvJc5TrRqdu6wfWYFQ5gDp1US8adwZM4D9tdisMyS3Ur15E/jlTxg2NMz8894soNh4SD3Tq8VwvgWQWRYP/nORkYYgMkh3/1NIW/68eC8krOOOOOfyqHEVs6WyO7/lqtU12zWdp1oi1mXM9UoDAEDQsVUic0u5yAqmXTsYMHBm8pGBwSJAmAl3OtJgKBHgVKYNDhj/84LE+zGTGiwI7pUWQNJjJaHec0cLGAQTS9aYRgsFDALDgTZ4vkvC03xgCZIeQCjJgIDpJtrM9hGs/lMw2VioILmqVhimbg5r09nGc49FuOkxKLgRCcKGARYclaEqVrshl2O8u444wCw1+bNXkzGeaprW6amuwzDuGcZqVJc9HocwjCsAkoPi1F/qIoPiY1I//zTv+jo7CMJQ6BSvkQVASQZIkKichihOGAkoiUZUMKLBFQvYcqKQBKSyBdNOhZaHFDgg+UECFGIoJcILiHBjVv/zgsT4MgLSAADmjzQZBiZVwY6GYGQSTTDbDN6TOYBBOKsMGvhA9GEgJQmCNGHKmGIAgIgHU0b9tWdNJZ80VnrVG7uA78IgaHY1KojEo7HInKIvCXFZ0ylmTPWiMzZgz9fK+mEi4UwSASxsG8rKE2L05sRLH05FJVVJFJVBNj7r//6c10xMOakioqgDhzFWRYWJDG/qFfioqK/8V//KipkBC1VMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//OCxPQxSjkMSMaW9FVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVU="
  };
 
-const NUMS = ['','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce','quince','dieciséis','diecisiete','dieciocho','diecinueve','veinte','veintiuno','veintidós','veintitrés','veinticuatro','veinticinco','veintiséis','veintisiete','veintiocho','veintinueve','treinta','treinta y uno','treinta y dos','treinta y tres','treinta y cuatro','treinta y cinco','treinta y seis','treinta y siete','treinta y ocho','treinta y nueve','cuarenta','cuarenta y uno','cuarenta y dos','cuarenta y tres','cuarenta y cuatro','cuarenta y cinco','cuarenta y seis','cuarenta y siete','cuarenta y ocho','cuarenta y nueve','cincuenta','cincuenta y uno','cincuenta y dos','cincuenta y tres','cincuenta y cuatro','cincuenta y cinco','cincuenta y seis','cincuenta y siete','cincuenta y ocho','cincuenta y nueve','sesenta','sesenta y uno','sesenta y dos','sesenta y tres','sesenta y cuatro','sesenta y cinco','sesenta y seis','sesenta y siete','sesenta y ocho','sesenta y nueve','setenta','setenta y uno','setenta y dos','setenta y tres','setenta y cuatro','setenta y cinco','setenta y seis','setenta y siete','setenta y ocho','setenta y nueve','ochenta','ochenta y uno','ochenta y dos','ochenta y tres','ochenta y cuatro','ochenta y cinco','ochenta y seis','ochenta y siete','ochenta y ocho','ochenta y nueve','noventa','noventa y uno','noventa y dos','noventa y tres','noventa y cuatro','noventa y cinco','noventa y seis','noventa y siete','noventa y ocho','noventa y nueve','cien'];
+const NUM={es:['','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce','quince','dieciséis','diecisiete','dieciocho','diecinueve','veinte','veintiuno','veintidós','veintitrés','veinticuatro','veinticinco','veintiséis','veintisiete','veintiocho','veintinueve','treinta','treinta y uno','treinta y dos','treinta y tres','treinta y cuatro','treinta y cinco','treinta y seis','treinta y siete','treinta y ocho','treinta y nueve','cuarenta','cuarenta y uno','cuarenta y dos','cuarenta y tres','cuarenta y cuatro','cuarenta y cinco','cuarenta y seis','cuarenta y siete','cuarenta y ocho','cuarenta y nueve','cincuenta','cincuenta y uno','cincuenta y dos','cincuenta y tres','cincuenta y cuatro','cincuenta y cinco','cincuenta y seis','cincuenta y siete','cincuenta y ocho','cincuenta y nueve','sesenta','sesenta y uno','sesenta y dos','sesenta y tres','sesenta y cuatro','sesenta y cinco','sesenta y seis','sesenta y siete','sesenta y ocho','sesenta y nueve','setenta','setenta y uno','setenta y dos','setenta y tres','setenta y cuatro','setenta y cinco','setenta y seis','setenta y siete','setenta y ocho','setenta y nueve','ochenta','ochenta y uno','ochenta y dos','ochenta y tres','ochenta y cuatro','ochenta y cinco','ochenta y seis','ochenta y siete','ochenta y ocho','ochenta y nueve','noventa','noventa y uno','noventa y dos','noventa y tres','noventa y cuatro','noventa y cinco','noventa y seis','noventa y siete','noventa y ocho','noventa y nueve','cien'],en:['','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty','twenty-one','twenty-two','twenty-three','twenty-four','twenty-five','twenty-six','twenty-seven','twenty-eight','twenty-nine','thirty','thirty-one','thirty-two','thirty-three','thirty-four','thirty-five','thirty-six','thirty-seven','thirty-eight','thirty-nine','forty','forty-one','forty-two','forty-three','forty-four','forty-five','forty-six','forty-seven','forty-eight','forty-nine','fifty','fifty-one','fifty-two','fifty-three','fifty-four','fifty-five','fifty-six','fifty-seven','fifty-eight','fifty-nine','sixty','sixty-one','sixty-two','sixty-three','sixty-four','sixty-five','sixty-six','sixty-seven','sixty-eight','sixty-nine','seventy','seventy-one','seventy-two','seventy-three','seventy-four','seventy-five','seventy-six','seventy-seven','seventy-eight','seventy-nine','eighty','eighty-one','eighty-two','eighty-three','eighty-four','eighty-five','eighty-six','eighty-seven','eighty-eight','eighty-nine','ninety','ninety-one','ninety-two','ninety-three','ninety-four','ninety-five','ninety-six','ninety-seven','ninety-eight','ninety-nine','one hundred'],pt:['','um','dois','três','quatro','cinco','seis','sete','oito','nove','dez','onze','doze','treze','catorze','quinze','dezesseis','dezessete','dezoito','dezenove','vinte','vinte e um','vinte e dois','vinte e três','vinte e quatro','vinte e cinco','vinte e seis','vinte e sete','vinte e oito','vinte e nove','trinta','trinta e um','trinta e dois','trinta e três','trinta e quatro','trinta e cinco','trinta e seis','trinta e sete','trinta e oito','trinta e nove','quarenta','quarenta e um','quarenta e dois','quarenta e três','quarenta e quatro','quarenta e cinco','quarenta e seis','quarenta e sete','quarenta e oito','quarenta e nove','cinquenta','cinquenta e um','cinquenta e dois','cinquenta e três','cinquenta e quatro','cinquenta e cinco','cinquenta e seis','cinquenta e sete','cinquenta e oito','cinquenta e nove','sessenta','sessenta e um','sessenta e dois','sessenta e três','sessenta e quatro','sessenta e cinco','sessenta e seis','sessenta e sete','sessenta e oito','sessenta e nove','setenta','setenta e um','setenta e dois','setenta e três','setenta e quatro','setenta e cinco','setenta e seis','setenta e sete','setenta e oito','setenta e nove','oitenta','oitenta e um','oitenta e dois','oitenta e três','oitenta e quatro','oitenta e cinco','oitenta e seis','oitenta e sete','oitenta e oito','oitenta e nove','noventa','noventa e um','noventa e dois','noventa e três','noventa e quatro','noventa e cinco','noventa e seis','noventa e sete','noventa e oito','noventa e nove','cem']};
 
-const ANIMALES = [
- {n:1, key:'perro', name:'Perro', emoji:'🐶', plural:'perros', fact:'El perro mueve la colita cuando está feliz.', art:'el', accent:'var(--c1)', tint:'#FFE3EC'},
- {n:2, key:'gato', name:'Gato', emoji:'🐱', plural:'gatos', fact:'Al gato le gusta dormir y ronronear.', art:'el', accent:'var(--c2)', tint:'#FFEFD6'},
- {n:3, key:'pato', name:'Pato', emoji:'🦆', plural:'patos', fact:'El pato nada en el agua y hace cuac cuac.', art:'el', accent:'var(--c3)', tint:'#D7F6F0'},
- {n:4, key:'vaca', name:'Vaca', emoji:'🐮', plural:'vacas', fact:'La vaca nos da leche y hace muu.', art:'la', accent:'var(--c4)', tint:'#E1ECFF'},
- {n:5, key:'conejo', name:'Conejo', emoji:'🐰', plural:'conejos', fact:'El conejo salta alto y come zanahorias.', art:'el', accent:'var(--c5)', tint:'#EEE5FF'},
- {n:6, key:'caballo', name:'Caballo', emoji:'🐴', plural:'caballos', fact:'El caballo corre rápido por el campo.', art:'el', accent:'var(--c1)', tint:'#FFE3EC'},
- {n:7, key:'cerdo', name:'Cerdo', emoji:'🐷', plural:'cerdos', fact:'Al cerdito le gusta jugar en el barro.', art:'el', accent:'var(--c2)', tint:'#FFEFD6'},
- {n:8, key:'oveja', name:'Oveja', emoji:'🐑', plural:'ovejas', fact:'La oveja tiene lana suavecita y hace bee.', art:'la', accent:'var(--c3)', tint:'#D7F6F0'},
- {n:9, key:'gallo', name:'Gallo', emoji:'🐓', plural:'gallos', fact:'El gallo canta temprano: ¡quiquiriquí!', art:'el', accent:'var(--c4)', tint:'#E1ECFF'},
- {n:10, key:'rana', name:'Rana', emoji:'🐸', plural:'ranas', fact:'La rana salta y vive cerca del agua.', art:'la', accent:'var(--c5)', tint:'#EEE5FF'},
- {n:11, key:'pajaro', name:'Pájaro', emoji:'🐦', plural:'pájaros', fact:'El pájaro vuela alto y canta bonito.', art:'el', accent:'var(--c1)', tint:'#FFE3EC'},
- {n:12, key:'abeja', name:'Abeja', emoji:'🐝', plural:'abejas', fact:'La abeja hace miel dulce y dice bzzz.', art:'la', accent:'var(--c2)', tint:'#FFEFD6'},
- {n:13, key:'mono', name:'Mono', emoji:'🐵', plural:'monos', fact:'Al mono le gusta trepar a los árboles.', art:'el', accent:'var(--c3)', tint:'#D7F6F0'},
- {n:14, key:'elefante', name:'Elefante', emoji:'🐘', plural:'elefantes', fact:'El elefante es enorme y tiene trompa larga.', art:'el', accent:'var(--c4)', tint:'#E1ECFF'},
- {n:15, key:'leon', name:'León', emoji:'🦁', plural:'leones', fact:'El león ruge muy fuerte en la sabana.', art:'el', accent:'var(--c5)', tint:'#EEE5FF'},
- {n:16, key:'tigre', name:'Tigre', emoji:'🐯', plural:'tigres', fact:'El tigre tiene rayas y corre muy rápido.', art:'el', accent:'var(--c1)', tint:'#FFE3EC'},
- {n:17, key:'oso', name:'Oso', emoji:'🐻', plural:'osos', fact:'Al oso le gusta la miel y dormir en invierno.', art:'el', accent:'var(--c2)', tint:'#FFEFD6'},
- {n:18, key:'buho', name:'Búho', emoji:'🦉', plural:'búhos', fact:'El búho ve de noche y hace uh uh.', art:'el', accent:'var(--c3)', tint:'#D7F6F0'},
- {n:19, key:'pinguino', name:'Pingüino', emoji:'🐧', plural:'pingüinos', fact:'El pingüino camina gracioso y nada muy bien.', art:'el', accent:'var(--c4)', tint:'#E1ECFF'},
- {n:20, key:'lobo', name:'Lobo', emoji:'🐺', plural:'lobos', fact:'El lobo aúlla a la luna con su manada.', art:'el', accent:'var(--c5)', tint:'#EEE5FF'},
- {n:21, key:'jirafa', name:'Jirafa', emoji:'🦒', plural:'jirafas', fact:'La jirafa tiene el cuello muy largo.', art:'la', accent:'var(--c1)', tint:'#FFE3EC'},
- {n:22, key:'cebra', name:'Cebra', emoji:'🦓', plural:'cebras', fact:'La cebra tiene rayas blancas y negras.', art:'la', accent:'var(--c2)', tint:'#FFEFD6'},
- {n:23, key:'zorro', name:'Zorro', emoji:'🦊', plural:'zorros', fact:'El zorro es astuto y tiene cola peluda.', art:'el', accent:'var(--c3)', tint:'#D7F6F0'},
- {n:24, key:'ardilla', name:'Ardilla', emoji:'🐿️', plural:'ardillas', fact:'La ardilla guarda nueces para el invierno.', art:'la', accent:'var(--c4)', tint:'#E1ECFF'},
- {n:25, key:'raton', name:'Ratón', emoji:'🐭', plural:'ratones', fact:'El ratón es chiquito y come queso.', art:'el', accent:'var(--c5)', tint:'#EEE5FF'},
- {n:26, key:'hamster', name:'Hámster', emoji:'🐹', plural:'hámsters', fact:'El hámster guarda comida en sus cachetes.', art:'el', accent:'var(--c1)', tint:'#FFE3EC'},
- {n:27, key:'tortuga', name:'Tortuga', emoji:'🐢', plural:'tortugas', fact:'La tortuga camina despacio y lleva su casa.', art:'la', accent:'var(--c2)', tint:'#FFEFD6'},
- {n:28, key:'serpiente', name:'Serpiente', emoji:'🐍', plural:'serpientes', fact:'La serpiente se arrastra y saca la lengua.', art:'el', accent:'var(--c3)', tint:'#D7F6F0'},
- {n:29, key:'cocodrilo', name:'Cocodrilo', emoji:'🐊', plural:'cocodrilos', fact:'El cocodrilo tiene muchos dientes.', art:'el', accent:'var(--c4)', tint:'#E1ECFF'},
- {n:30, key:'delfin', name:'Delfín', emoji:'🐬', plural:'delfines', fact:'El delfín salta y nada muy rápido.', art:'el', accent:'var(--c5)', tint:'#EEE5FF'},
- {n:31, key:'ballena', name:'Ballena', emoji:'🐳', plural:'ballenas', fact:'La ballena es muy grande y vive en el mar.', art:'la', accent:'var(--c1)', tint:'#FFE3EC'},
- {n:32, key:'tiburon', name:'Tiburón', emoji:'🦈', plural:'tiburones', fact:'El tiburón nada en el mar profundo.', art:'el', accent:'var(--c2)', tint:'#FFEFD6'},
- {n:33, key:'pulpo', name:'Pulpo', emoji:'🐙', plural:'pulpos', fact:'El pulpo tiene ocho brazos.', art:'el', accent:'var(--c3)', tint:'#D7F6F0'},
- {n:34, key:'cangrejo', name:'Cangrejo', emoji:'🦀', plural:'cangrejos', fact:'El cangrejo camina de lado.', art:'el', accent:'var(--c4)', tint:'#E1ECFF'},
- {n:35, key:'pez', name:'Pez', emoji:'🐠', plural:'peces', fact:'El pez vive en el agua y tiene aletas.', art:'el', accent:'var(--c5)', tint:'#EEE5FF'},
- {n:36, key:'caballito', name:'Caballito de mar', emoji:'🐠', plural:'caballitos de mar', fact:'El caballito de mar nada parado.', art:'el', accent:'var(--c1)', tint:'#FFE3EC'},
- {n:37, key:'estrella', name:'Estrella de mar', emoji:'⭐', plural:'estrellas de mar', fact:'La estrella de mar tiene cinco brazos.', art:'la', accent:'var(--c2)', tint:'#FFEFD6'},
- {n:38, key:'medusa', name:'Medusa', emoji:'🪼', plural:'medusas', fact:'La medusa flota como gelatina.', art:'la', accent:'var(--c3)', tint:'#D7F6F0'},
- {n:39, key:'foca', name:'Foca', emoji:'🦭', plural:'focas', fact:'La foca nada y le gusta el sol.', art:'la', accent:'var(--c4)', tint:'#E1ECFF'},
- {n:40, key:'caracol', name:'Caracol', emoji:'🐌', plural:'caracoles', fact:'El caracol lleva su casita a cuestas.', art:'el', accent:'var(--c5)', tint:'#EEE5FF'},
- {n:41, key:'mariposa', name:'Mariposa', emoji:'🦋', plural:'mariposas', fact:'La mariposa tiene alas de colores.', art:'la', accent:'var(--c1)', tint:'#FFE3EC'},
- {n:42, key:'arana', name:'Araña', emoji:'🕷️', plural:'arañas', fact:'La araña teje una telaraña.', art:'la', accent:'var(--c2)', tint:'#FFEFD6'},
- {n:43, key:'hormiga', name:'Hormiga', emoji:'🐜', plural:'hormigas', fact:'La hormiga es chiquita y muy trabajadora.', art:'la', accent:'var(--c3)', tint:'#D7F6F0'},
- {n:44, key:'mariquita', name:'Mariquita', emoji:'🐞', plural:'mariquitas', fact:'La mariquita es roja con puntitos negros.', art:'la', accent:'var(--c4)', tint:'#E1ECFF'},
- {n:45, key:'libelula', name:'Libélula', emoji:'🦗', plural:'libélulas', fact:'La libélula vuela cerca del agua.', art:'la', accent:'var(--c5)', tint:'#EEE5FF'},
- {n:46, key:'saltamontes', name:'Saltamontes', emoji:'🦗', plural:'saltamontes', fact:'El saltamontes salta muy lejos.', art:'el', accent:'var(--c1)', tint:'#FFE3EC'},
- {n:47, key:'oruga', name:'Oruga', emoji:'🐛', plural:'orugas', fact:'La oruga se convierte en mariposa.', art:'la', accent:'var(--c2)', tint:'#FFEFD6'},
- {n:48, key:'pollito', name:'Pollito', emoji:'🐤', plural:'pollitos', fact:'El pollito es amarillo y hace pío pío.', art:'el', accent:'var(--c3)', tint:'#D7F6F0'},
- {n:49, key:'gallina', name:'Gallina', emoji:'🐔', plural:'gallinas', fact:'La gallina pone huevos.', art:'la', accent:'var(--c4)', tint:'#E1ECFF'},
- {n:50, key:'cabra', name:'Cabra', emoji:'🐐', plural:'cabras', fact:'La cabra trepa por las montañas.', art:'la', accent:'var(--c5)', tint:'#EEE5FF'},
- {n:51, key:'burro', name:'Burro', emoji:'🐴', plural:'burros', fact:'El burro carga cosas y hace iaaa.', art:'el', accent:'var(--c1)', tint:'#FFE3EC'},
- {n:52, key:'llama', name:'Llama', emoji:'🦙', plural:'llamas', fact:'La llama vive en las montañas altas.', art:'la', accent:'var(--c2)', tint:'#FFEFD6'},
- {n:53, key:'camello', name:'Camello', emoji:'🐫', plural:'camellos', fact:'El camello cruza el desierto.', art:'el', accent:'var(--c3)', tint:'#D7F6F0'},
- {n:54, key:'rinoceronte', name:'Rinoceronte', emoji:'🦏', plural:'rinocerontes', fact:'El rinoceronte tiene un cuerno grande.', art:'el', accent:'var(--c4)', tint:'#E1ECFF'},
- {n:55, key:'hipopotamo', name:'Hipopótamo', emoji:'🦛', plural:'hipopótamos', fact:'El hipopótamo se baña en el río.', art:'el', accent:'var(--c5)', tint:'#EEE5FF'},
- {n:56, key:'gorila', name:'Gorila', emoji:'🦍', plural:'gorilas', fact:'El gorila es fuerte y vive en la selva.', art:'el', accent:'var(--c1)', tint:'#FFE3EC'},
- {n:57, key:'panda', name:'Panda', emoji:'🐼', plural:'pandas', fact:'El panda come bambú todo el día.', art:'el', accent:'var(--c2)', tint:'#FFEFD6'},
- {n:58, key:'koala', name:'Koala', emoji:'🐨', plural:'koalas', fact:'El koala duerme en los árboles.', art:'el', accent:'var(--c3)', tint:'#D7F6F0'},
- {n:59, key:'canguro', name:'Canguro', emoji:'🦘', plural:'canguros', fact:'El canguro salta y lleva a su bebé.', art:'el', accent:'var(--c4)', tint:'#E1ECFF'},
- {n:60, key:'perezoso', name:'Perezoso', emoji:'🦥', plural:'perezosos', fact:'El perezoso se mueve muy lentito.', art:'el', accent:'var(--c5)', tint:'#EEE5FF'},
- {n:61, key:'mapache', name:'Mapache', emoji:'🦝', plural:'mapaches', fact:'El mapache tiene antifaz en la cara.', art:'el', accent:'var(--c1)', tint:'#FFE3EC'},
- {n:62, key:'nutria', name:'Nutria', emoji:'🦦', plural:'nutrias', fact:'La nutria nada y juega en el agua.', art:'la', accent:'var(--c2)', tint:'#FFEFD6'},
- {n:63, key:'castor', name:'Castor', emoji:'🦫', plural:'castores', fact:'El castor hace presas con palitos.', art:'el', accent:'var(--c3)', tint:'#D7F6F0'},
- {n:64, key:'erizo', name:'Erizo', emoji:'🦔', plural:'erizos', fact:'El erizo tiene púas para protegerse.', art:'el', accent:'var(--c4)', tint:'#E1ECFF'},
- {n:65, key:'murcielago', name:'Murciélago', emoji:'🦇', plural:'murciélagos', fact:'El murciélago vuela de noche.', art:'el', accent:'var(--c5)', tint:'#EEE5FF'},
- {n:66, key:'ciervo', name:'Ciervo', emoji:'🦌', plural:'ciervos', fact:'El ciervo tiene astas en la cabeza.', art:'el', accent:'var(--c1)', tint:'#FFE3EC'},
- {n:67, key:'alce', name:'Alce', emoji:'🦌', plural:'alces', fact:'El alce es muy grande y vive en el bosque.', art:'el', accent:'var(--c2)', tint:'#FFEFD6'},
- {n:68, key:'bisonte', name:'Bisonte', emoji:'🦬', plural:'bisontes', fact:'El bisonte es grande y peludo.', art:'el', accent:'var(--c3)', tint:'#D7F6F0'},
- {n:69, key:'jabali', name:'Jabalí', emoji:'🐗', plural:'jabalíes', fact:'El jabalí vive en el bosque.', art:'el', accent:'var(--c4)', tint:'#E1ECFF'},
- {n:70, key:'leopardo', name:'Leopardo', emoji:'🐆', plural:'leopardos', fact:'El leopardo trepa árboles con sus manchas.', art:'el', accent:'var(--c5)', tint:'#EEE5FF'},
- {n:71, key:'guepardo', name:'Guepardo', emoji:'🐆', plural:'guepardos', fact:'El guepardo es el más veloz.', art:'el', accent:'var(--c1)', tint:'#FFE3EC'},
- {n:72, key:'lince', name:'Lince', emoji:'🐱', plural:'linces', fact:'El lince tiene orejas con pelitos.', art:'el', accent:'var(--c2)', tint:'#FFEFD6'},
- {n:73, key:'pavo', name:'Pavo', emoji:'🦃', plural:'pavos', fact:'El pavo abre sus plumas como abanico.', art:'el', accent:'var(--c3)', tint:'#D7F6F0'},
- {n:74, key:'pavoreal', name:'Pavo real', emoji:'🦚', plural:'pavos reales', fact:'El pavo real tiene plumas hermosas.', art:'el', accent:'var(--c4)', tint:'#E1ECFF'},
- {n:75, key:'loro', name:'Loro', emoji:'🦜', plural:'loros', fact:'El loro repite palabras y tiene colores.', art:'el', accent:'var(--c5)', tint:'#EEE5FF'},
- {n:76, key:'tucan', name:'Tucán', emoji:'🐦', plural:'tucanes', fact:'El tucán tiene un pico grande y colorido.', art:'el', accent:'var(--c1)', tint:'#FFE3EC'},
- {n:77, key:'flamenco', name:'Flamenco', emoji:'🦩', plural:'flamencos', fact:'El flamenco es rosado y se para en una pata.', art:'el', accent:'var(--c2)', tint:'#FFEFD6'},
- {n:78, key:'cisne', name:'Cisne', emoji:'🦢', plural:'cisnes', fact:'El cisne nada elegante en el lago.', art:'el', accent:'var(--c3)', tint:'#D7F6F0'},
- {n:79, key:'aguila', name:'Águila', emoji:'🦅', plural:'águilas', fact:'El águila vuela muy alto.', art:'el', accent:'var(--c4)', tint:'#E1ECFF'},
- {n:80, key:'paloma', name:'Paloma', emoji:'🕊️', plural:'palomas', fact:'La paloma vuela en la ciudad.', art:'la', accent:'var(--c5)', tint:'#EEE5FF'},
- {n:81, key:'colibri', name:'Colibrí', emoji:'🐦', plural:'colibríes', fact:'El colibrí es chiquito y vuela muy rápido.', art:'el', accent:'var(--c1)', tint:'#FFE3EC'},
- {n:82, key:'gaviota', name:'Gaviota', emoji:'🐦', plural:'gaviotas', fact:'La gaviota vuela cerca del mar.', art:'la', accent:'var(--c2)', tint:'#FFEFD6'},
- {n:83, key:'cuervo', name:'Cuervo', emoji:'🐦', plural:'cuervos', fact:'El cuervo es negro y muy listo.', art:'el', accent:'var(--c3)', tint:'#D7F6F0'},
- {n:84, key:'golondrina', name:'Golondrina', emoji:'🐦', plural:'golondrinas', fact:'La golondrina vuela y hace su nido.', art:'la', accent:'var(--c4)', tint:'#E1ECFF'},
- {n:85, key:'abejorro', name:'Abejorro', emoji:'🐝', plural:'abejorros', fact:'El abejorro es grande y peludo.', art:'el', accent:'var(--c5)', tint:'#EEE5FF'},
- {n:86, key:'grillo', name:'Grillo', emoji:'🦗', plural:'grillos', fact:'El grillo canta de noche.', art:'el', accent:'var(--c1)', tint:'#FFE3EC'},
- {n:87, key:'escarabajo', name:'Escarabajo', emoji:'🪲', plural:'escarabajos', fact:'El escarabajo tiene caparazón duro.', art:'el', accent:'var(--c2)', tint:'#FFEFD6'},
- {n:88, key:'luciernaga', name:'Luciérnaga', emoji:'✨', plural:'luciérnagas', fact:'La luciérnaga brilla en la noche.', art:'la', accent:'var(--c3)', tint:'#D7F6F0'},
- {n:89, key:'gusano', name:'Gusano', emoji:'🐛', plural:'gusanos', fact:'El gusano vive en la tierra.', art:'el', accent:'var(--c4)', tint:'#E1ECFF'},
- {n:90, key:'lagartija', name:'Lagartija', emoji:'🦎', plural:'lagartijas', fact:'La lagartija toma el sol en las piedras.', art:'la', accent:'var(--c5)', tint:'#EEE5FF'},
- {n:91, key:'iguana', name:'Iguana', emoji:'🦎', plural:'iguanas', fact:'La iguana es verde y le gusta el calor.', art:'la', accent:'var(--c1)', tint:'#FFE3EC'},
- {n:92, key:'camaleon', name:'Camaleón', emoji:'🦎', plural:'camaleones', fact:'El camaleón cambia de color.', art:'el', accent:'var(--c2)', tint:'#FFEFD6'},
- {n:93, key:'salamandra', name:'Salamandra', emoji:'🦎', plural:'salamandras', fact:'La salamandra vive en lugares húmedos.', art:'la', accent:'var(--c3)', tint:'#D7F6F0'},
- {n:94, key:'sapo', name:'Sapo', emoji:'🐸', plural:'sapos', fact:'El sapo tiene la piel con bolitas.', art:'el', accent:'var(--c4)', tint:'#E1ECFF'},
- {n:95, key:'ajolote', name:'Ajolote', emoji:'🦎', plural:'ajolotes', fact:'El ajolote vive en el agua y sonríe.', art:'el', accent:'var(--c5)', tint:'#EEE5FF'},
- {n:96, key:'langosta', name:'Langosta', emoji:'🦞', plural:'langostas', fact:'La langosta vive en el mar y tiene pinzas.', art:'la', accent:'var(--c1)', tint:'#FFE3EC'},
- {n:97, key:'camaron', name:'Camarón', emoji:'🦐', plural:'camarones', fact:'El camarón es chiquito y vive en el agua.', art:'el', accent:'var(--c2)', tint:'#FFEFD6'},
- {n:98, key:'morsa', name:'Morsa', emoji:'🦭', plural:'morsas', fact:'La morsa tiene dos colmillos largos.', art:'la', accent:'var(--c3)', tint:'#D7F6F0'},
- {n:99, key:'orca', name:'Orca', emoji:'🐳', plural:'orcas', fact:'La orca es blanca y negra y nada en grupo.', art:'la', accent:'var(--c4)', tint:'#E1ECFF'},
- {n:100, key:'pezpayaso', name:'Pez payaso', emoji:'🐠', plural:'peces payaso', fact:'El pez payaso es naranja y vive en el coral.', art:'el', accent:'var(--c5)', tint:'#EEE5FF'}
+const ANIMALES=[
+ {n:1,key:'perro',emoji:'🐶',accent:'var(--c1)',tint:'#FFE3EC',nm:{es:'Perro',en:'Dog',pt:'Cachorro'},ft:{es:'El perro mueve la colita cuando está feliz.',en:'The dog wags its tail when it is happy.',pt:'O cachorro abana o rabo quando está feliz.'},ar:{es:'el',pt:'o'}},
+ {n:2,key:'gato',emoji:'🐱',accent:'var(--c2)',tint:'#FFEFD6',nm:{es:'Gato',en:'Cat',pt:'Gato'},ft:{es:'Al gato le gusta dormir y ronronear.',en:'The cat likes to sleep and purr.',pt:'O gato gosta de dormir e ronronar.'},ar:{es:'el',pt:'o'}},
+ {n:3,key:'pato',emoji:'🦆',accent:'var(--c3)',tint:'#D7F6F0',nm:{es:'Pato',en:'Duck',pt:'Pato'},ft:{es:'El pato nada en el agua y hace cuac cuac.',en:'The duck swims and says quack quack.',pt:'O pato nada na água e faz quá-quá.'},ar:{es:'el',pt:'o'}},
+ {n:4,key:'vaca',emoji:'🐮',accent:'var(--c4)',tint:'#E1ECFF',nm:{es:'Vaca',en:'Cow',pt:'Vaca'},ft:{es:'La vaca nos da leche y hace muu.',en:'The cow gives us milk and says moo.',pt:'A vaca nos dá leite e faz muu.'},ar:{es:'la',pt:'a'}},
+ {n:5,key:'conejo',emoji:'🐰',accent:'var(--c5)',tint:'#EEE5FF',nm:{es:'Conejo',en:'Rabbit',pt:'Coelho'},ft:{es:'El conejo salta alto y come zanahorias.',en:'The rabbit jumps high and eats carrots.',pt:'O coelho pula alto e come cenoura.'},ar:{es:'el',pt:'o'}},
+ {n:6,key:'caballo',emoji:'🐴',accent:'var(--c1)',tint:'#FFE3EC',nm:{es:'Caballo',en:'Horse',pt:'Cavalo'},ft:{es:'El caballo corre rápido por el campo.',en:'The horse runs fast in the field.',pt:'O cavalo corre rápido pelo campo.'},ar:{es:'el',pt:'o'}},
+ {n:7,key:'cerdo',emoji:'🐷',accent:'var(--c2)',tint:'#FFEFD6',nm:{es:'Cerdo',en:'Pig',pt:'Porco'},ft:{es:'Al cerdito le gusta jugar en el barro.',en:'The little pig likes to play in the mud.',pt:'O porquinho gosta de brincar na lama.'},ar:{es:'el',pt:'o'}},
+ {n:8,key:'oveja',emoji:'🐑',accent:'var(--c3)',tint:'#D7F6F0',nm:{es:'Oveja',en:'Sheep',pt:'Ovelha'},ft:{es:'La oveja tiene lana suavecita y hace bee.',en:'The sheep has soft wool and says baa.',pt:'A ovelha tem lã macia e faz mé.'},ar:{es:'la',pt:'a'}},
+ {n:9,key:'gallo',emoji:'🐓',accent:'var(--c4)',tint:'#E1ECFF',nm:{es:'Gallo',en:'Rooster',pt:'Galo'},ft:{es:'El gallo canta temprano: ¡quiquiriquí!',en:'The rooster crows early: cock-a-doodle-doo!',pt:'O galo canta cedo: có-có-ró-có!'},ar:{es:'el',pt:'o'}},
+ {n:10,key:'rana',emoji:'🐸',accent:'var(--c5)',tint:'#EEE5FF',nm:{es:'Rana',en:'Frog',pt:'Rã'},ft:{es:'La rana salta y vive cerca del agua.',en:'The frog jumps and lives near the water.',pt:'A rã pula e vive perto da água.'},ar:{es:'la',pt:'a'}},
+ {n:11,key:'pajaro',emoji:'🐦',accent:'var(--c1)',tint:'#FFE3EC',nm:{es:'Pájaro',en:'Bird',pt:'Pássaro'},ft:{es:'El pájaro vuela alto y canta bonito.',en:'The bird flies high and sings beautifully.',pt:'O pássaro voa alto e canta bonito.'},ar:{es:'el',pt:'o'}},
+ {n:12,key:'abeja',emoji:'🐝',accent:'var(--c2)',tint:'#FFEFD6',nm:{es:'Abeja',en:'Bee',pt:'Abelha'},ft:{es:'La abeja hace miel dulce y dice bzzz.',en:'The bee makes sweet honey and says bzzz.',pt:'A abelha faz mel doce e faz bzzz.'},ar:{es:'la',pt:'a'}},
+ {n:13,key:'mono',emoji:'🐵',accent:'var(--c3)',tint:'#D7F6F0',nm:{es:'Mono',en:'Monkey',pt:'Macaco'},ft:{es:'Al mono le gusta trepar a los árboles.',en:'The monkey likes to climb trees.',pt:'O macaco gosta de subir nas árvores.'},ar:{es:'el',pt:'o'}},
+ {n:14,key:'elefante',emoji:'🐘',accent:'var(--c4)',tint:'#E1ECFF',nm:{es:'Elefante',en:'Elephant',pt:'Elefante'},ft:{es:'El elefante es enorme y tiene trompa larga.',en:'The elephant is huge and has a long trunk.',pt:'O elefante é enorme e tem tromba comprida.'},ar:{es:'el',pt:'o'}},
+ {n:15,key:'leon',emoji:'🦁',accent:'var(--c5)',tint:'#EEE5FF',nm:{es:'León',en:'Lion',pt:'Leão'},ft:{es:'El león ruge muy fuerte en la sabana.',en:'The lion roars very loud in the savanna.',pt:'O leão ruge bem alto na savana.'},ar:{es:'el',pt:'o'}},
+ {n:16,key:'tigre',emoji:'🐯',accent:'var(--c1)',tint:'#FFE3EC',nm:{es:'Tigre',en:'Tiger',pt:'Tigre'},ft:{es:'El tigre tiene rayas y corre muy rápido.',en:'The tiger has stripes and runs very fast.',pt:'O tigre tem listras e corre muito rápido.'},ar:{es:'el',pt:'o'}},
+ {n:17,key:'oso',emoji:'🐻',accent:'var(--c2)',tint:'#FFEFD6',nm:{es:'Oso',en:'Bear',pt:'Urso'},ft:{es:'Al oso le gusta la miel y dormir en invierno.',en:'The bear likes honey and sleeping in winter.',pt:'O urso gosta de mel e de dormir no inverno.'},ar:{es:'el',pt:'o'}},
+ {n:18,key:'buho',emoji:'🦉',accent:'var(--c3)',tint:'#D7F6F0',nm:{es:'Búho',en:'Owl',pt:'Coruja'},ft:{es:'El búho ve de noche y hace uh uh.',en:'The owl sees at night and says hoo hoo.',pt:'A coruja enxerga à noite e faz uh uh.'},ar:{es:'el',pt:'a'}},
+ {n:19,key:'pinguino',emoji:'🐧',accent:'var(--c4)',tint:'#E1ECFF',nm:{es:'Pingüino',en:'Penguin',pt:'Pinguim'},ft:{es:'El pingüino camina gracioso y nada muy bien.',en:'The penguin waddles and swims very well.',pt:'O pinguim anda engraçado e nada muito bem.'},ar:{es:'el',pt:'o'}},
+ {n:20,key:'lobo',emoji:'🐺',accent:'var(--c5)',tint:'#EEE5FF',nm:{es:'Lobo',en:'Wolf',pt:'Lobo'},ft:{es:'El lobo aúlla a la luna con su manada.',en:'The wolf howls at the moon with its pack.',pt:'O lobo uiva para a lua com a alcateia.'},ar:{es:'el',pt:'o'}},
+ {n:21,key:'jirafa',emoji:'🦒',accent:'var(--c1)',tint:'#FFE3EC',nm:{es:'Jirafa',en:'Giraffe',pt:'Girafa'},ft:{es:'La jirafa tiene el cuello muy largo.',en:'The giraffe has a very long neck.',pt:'A girafa tem o pescoço bem comprido.'},ar:{es:'la',pt:'a'}},
+ {n:22,key:'cebra',emoji:'🦓',accent:'var(--c2)',tint:'#FFEFD6',nm:{es:'Cebra',en:'Zebra',pt:'Zebra'},ft:{es:'La cebra tiene rayas blancas y negras.',en:'The zebra has black and white stripes.',pt:'A zebra tem listras pretas e brancas.'},ar:{es:'la',pt:'a'}},
+ {n:23,key:'zorro',emoji:'🦊',accent:'var(--c3)',tint:'#D7F6F0',nm:{es:'Zorro',en:'Fox',pt:'Raposa'},ft:{es:'El zorro es astuto y tiene cola peluda.',en:'The fox is clever and has a bushy tail.',pt:'A raposa é esperta e tem rabo peludo.'},ar:{es:'el',pt:'a'}},
+ {n:24,key:'ardilla',emoji:'🐿️',accent:'var(--c4)',tint:'#E1ECFF',nm:{es:'Ardilla',en:'Squirrel',pt:'Esquilo'},ft:{es:'La ardilla guarda nueces para el invierno.',en:'The squirrel stores nuts for winter.',pt:'O esquilo guarda nozes para o inverno.'},ar:{es:'la',pt:'o'}},
+ {n:25,key:'raton',emoji:'🐭',accent:'var(--c5)',tint:'#EEE5FF',nm:{es:'Ratón',en:'Mouse',pt:'Rato'},ft:{es:'El ratón es chiquito y come queso.',en:'The mouse is tiny and eats cheese.',pt:'O rato é pequenininho e come queijo.'},ar:{es:'el',pt:'o'}},
+ {n:26,key:'hamster',emoji:'🐹',accent:'var(--c1)',tint:'#FFE3EC',nm:{es:'Hámster',en:'Hamster',pt:'Hamster'},ft:{es:'El hámster guarda comida en sus cachetes.',en:'The hamster stores food in its cheeks.',pt:'O hamster guarda comida nas bochechas.'},ar:{es:'el',pt:'o'}},
+ {n:27,key:'tortuga',emoji:'🐢',accent:'var(--c2)',tint:'#FFEFD6',nm:{es:'Tortuga',en:'Turtle',pt:'Tartaruga'},ft:{es:'La tortuga camina despacio y lleva su casa.',en:'The turtle walks slowly and carries its home.',pt:'A tartaruga anda devagar e carrega a casa.'},ar:{es:'la',pt:'a'}},
+ {n:28,key:'serpiente',emoji:'🐍',accent:'var(--c3)',tint:'#D7F6F0',nm:{es:'Serpiente',en:'Snake',pt:'Cobra'},ft:{es:'La serpiente se arrastra y saca la lengua.',en:'The snake slithers and flicks its tongue.',pt:'A cobra rasteja e mostra a língua.'},ar:{es:'la',pt:'a'}},
+ {n:29,key:'cocodrilo',emoji:'🐊',accent:'var(--c4)',tint:'#E1ECFF',nm:{es:'Cocodrilo',en:'Crocodile',pt:'Crocodilo'},ft:{es:'El cocodrilo tiene muchos dientes.',en:'The crocodile has many teeth.',pt:'O crocodilo tem muitos dentes.'},ar:{es:'el',pt:'o'}},
+ {n:30,key:'delfin',emoji:'🐬',accent:'var(--c5)',tint:'#EEE5FF',nm:{es:'Delfín',en:'Dolphin',pt:'Golfinho'},ft:{es:'El delfín salta y nada muy rápido.',en:'The dolphin jumps and swims very fast.',pt:'O golfinho pula e nada muito rápido.'},ar:{es:'el',pt:'o'}},
+ {n:31,key:'ballena',emoji:'🐳',accent:'var(--c1)',tint:'#FFE3EC',nm:{es:'Ballena',en:'Whale',pt:'Baleia'},ft:{es:'La ballena es muy grande y vive en el mar.',en:'The whale is very big and lives in the sea.',pt:'A baleia é muito grande e vive no mar.'},ar:{es:'la',pt:'a'}},
+ {n:32,key:'tiburon',emoji:'🦈',accent:'var(--c2)',tint:'#FFEFD6',nm:{es:'Tiburón',en:'Shark',pt:'Tubarão'},ft:{es:'El tiburón nada en el mar profundo.',en:'The shark swims in the deep sea.',pt:'O tubarão nada no mar profundo.'},ar:{es:'el',pt:'o'}},
+ {n:33,key:'pulpo',emoji:'🐙',accent:'var(--c3)',tint:'#D7F6F0',nm:{es:'Pulpo',en:'Octopus',pt:'Polvo'},ft:{es:'El pulpo tiene ocho brazos.',en:'The octopus has eight arms.',pt:'O polvo tem oito braços.'},ar:{es:'el',pt:'o'}},
+ {n:34,key:'cangrejo',emoji:'🦀',accent:'var(--c4)',tint:'#E1ECFF',nm:{es:'Cangrejo',en:'Crab',pt:'Caranguejo'},ft:{es:'El cangrejo camina de lado.',en:'The crab walks sideways.',pt:'O caranguejo anda de lado.'},ar:{es:'el',pt:'o'}},
+ {n:35,key:'pez',emoji:'🐠',accent:'var(--c5)',tint:'#EEE5FF',nm:{es:'Pez',en:'Fish',pt:'Peixe'},ft:{es:'El pez vive en el agua y tiene aletas.',en:'The fish lives in water and has fins.',pt:'O peixe vive na água e tem barbatanas.'},ar:{es:'el',pt:'o'}},
+ {n:36,key:'caballito',emoji:'🐠',accent:'var(--c1)',tint:'#FFE3EC',nm:{es:'Caballito de mar',en:'Seahorse',pt:'Cavalo-marinho'},ft:{es:'El caballito de mar nada parado.',en:'The seahorse swims upright.',pt:'O cavalo-marinho nada em pé.'},ar:{es:'el',pt:'o'}},
+ {n:37,key:'estrella',emoji:'⭐',accent:'var(--c2)',tint:'#FFEFD6',nm:{es:'Estrella de mar',en:'Starfish',pt:'Estrela-do-mar'},ft:{es:'La estrella de mar tiene cinco brazos.',en:'The starfish has five arms.',pt:'A estrela-do-mar tem cinco braços.'},ar:{es:'la',pt:'a'}},
+ {n:38,key:'medusa',emoji:'🪼',accent:'var(--c3)',tint:'#D7F6F0',nm:{es:'Medusa',en:'Jellyfish',pt:'Água-viva'},ft:{es:'La medusa flota como gelatina.',en:'The jellyfish floats like jelly.',pt:'A água-viva flutua como gelatina.'},ar:{es:'la',pt:'a'}},
+ {n:39,key:'foca',emoji:'🦭',accent:'var(--c4)',tint:'#E1ECFF',nm:{es:'Foca',en:'Seal',pt:'Foca'},ft:{es:'La foca nada y le gusta el sol.',en:'The seal swims and loves the sun.',pt:'A foca nada e gosta do sol.'},ar:{es:'la',pt:'a'}},
+ {n:40,key:'caracol',emoji:'🐌',accent:'var(--c5)',tint:'#EEE5FF',nm:{es:'Caracol',en:'Snail',pt:'Caracol'},ft:{es:'El caracol lleva su casita a cuestas.',en:'The snail carries its little house.',pt:'O caracol carrega a casinha nas costas.'},ar:{es:'el',pt:'o'}},
+ {n:41,key:'mariposa',emoji:'🦋',accent:'var(--c1)',tint:'#FFE3EC',nm:{es:'Mariposa',en:'Butterfly',pt:'Borboleta'},ft:{es:'La mariposa tiene alas de colores.',en:'The butterfly has colorful wings.',pt:'A borboleta tem asas coloridas.'},ar:{es:'la',pt:'a'}},
+ {n:42,key:'arana',emoji:'🕷️',accent:'var(--c2)',tint:'#FFEFD6',nm:{es:'Araña',en:'Spider',pt:'Aranha'},ft:{es:'La araña teje una telaraña.',en:'The spider weaves a web.',pt:'A aranha tece uma teia.'},ar:{es:'la',pt:'a'}},
+ {n:43,key:'hormiga',emoji:'🐜',accent:'var(--c3)',tint:'#D7F6F0',nm:{es:'Hormiga',en:'Ant',pt:'Formiga'},ft:{es:'La hormiga es chiquita y muy trabajadora.',en:'The ant is tiny and very hardworking.',pt:'A formiga é pequenina e trabalhadora.'},ar:{es:'la',pt:'a'}},
+ {n:44,key:'mariquita',emoji:'🐞',accent:'var(--c4)',tint:'#E1ECFF',nm:{es:'Mariquita',en:'Ladybug',pt:'Joaninha'},ft:{es:'La mariquita es roja con puntitos negros.',en:'The ladybug is red with black dots.',pt:'A joaninha é vermelha com pontinhos pretos.'},ar:{es:'la',pt:'a'}},
+ {n:45,key:'libelula',emoji:'🦗',accent:'var(--c5)',tint:'#EEE5FF',nm:{es:'Libélula',en:'Dragonfly',pt:'Libélula'},ft:{es:'La libélula vuela cerca del agua.',en:'The dragonfly flies near the water.',pt:'A libélula voa perto da água.'},ar:{es:'la',pt:'a'}},
+ {n:46,key:'saltamontes',emoji:'🦗',accent:'var(--c1)',tint:'#FFE3EC',nm:{es:'Saltamontes',en:'Grasshopper',pt:'Gafanhoto'},ft:{es:'El saltamontes salta muy lejos.',en:'The grasshopper jumps very far.',pt:'O gafanhoto pula bem longe.'},ar:{es:'el',pt:'o'}},
+ {n:47,key:'oruga',emoji:'🐛',accent:'var(--c2)',tint:'#FFEFD6',nm:{es:'Oruga',en:'Caterpillar',pt:'Lagarta'},ft:{es:'La oruga se convierte en mariposa.',en:'The caterpillar turns into a butterfly.',pt:'A lagarta vira borboleta.'},ar:{es:'la',pt:'a'}},
+ {n:48,key:'pollito',emoji:'🐤',accent:'var(--c3)',tint:'#D7F6F0',nm:{es:'Pollito',en:'Chick',pt:'Pintinho'},ft:{es:'El pollito es amarillo y hace pío pío.',en:'The chick is yellow and says peep peep.',pt:'O pintinho é amarelo e faz piu piu.'},ar:{es:'el',pt:'o'}},
+ {n:49,key:'gallina',emoji:'🐔',accent:'var(--c4)',tint:'#E1ECFF',nm:{es:'Gallina',en:'Hen',pt:'Galinha'},ft:{es:'La gallina pone huevos.',en:'The hen lays eggs.',pt:'A galinha põe ovos.'},ar:{es:'la',pt:'a'}},
+ {n:50,key:'cabra',emoji:'🐐',accent:'var(--c5)',tint:'#EEE5FF',nm:{es:'Cabra',en:'Goat',pt:'Cabra'},ft:{es:'La cabra trepa por las montañas.',en:'The goat climbs the mountains.',pt:'A cabra sobe nas montanhas.'},ar:{es:'la',pt:'a'}},
+ {n:51,key:'burro',emoji:'🐴',accent:'var(--c1)',tint:'#FFE3EC',nm:{es:'Burro',en:'Donkey',pt:'Burro'},ft:{es:'El burro carga cosas y hace iaaa.',en:'The donkey carries things and says hee-haw.',pt:'O burro carrega coisas e faz iô-ô.'},ar:{es:'el',pt:'o'}},
+ {n:52,key:'llama',emoji:'🦙',accent:'var(--c2)',tint:'#FFEFD6',nm:{es:'Llama',en:'Llama',pt:'Lhama'},ft:{es:'La llama vive en las montañas altas.',en:'The llama lives in the high mountains.',pt:'A lhama vive nas montanhas altas.'},ar:{es:'la',pt:'a'}},
+ {n:53,key:'camello',emoji:'🐫',accent:'var(--c3)',tint:'#D7F6F0',nm:{es:'Camello',en:'Camel',pt:'Camelo'},ft:{es:'El camello cruza el desierto.',en:'The camel crosses the desert.',pt:'O camelo atravessa o deserto.'},ar:{es:'el',pt:'o'}},
+ {n:54,key:'rinoceronte',emoji:'🦏',accent:'var(--c4)',tint:'#E1ECFF',nm:{es:'Rinoceronte',en:'Rhino',pt:'Rinoceronte'},ft:{es:'El rinoceronte tiene un cuerno grande.',en:'The rhino has a big horn.',pt:'O rinoceronte tem um chifre grande.'},ar:{es:'el',pt:'o'}},
+ {n:55,key:'hipopotamo',emoji:'🦛',accent:'var(--c5)',tint:'#EEE5FF',nm:{es:'Hipopótamo',en:'Hippo',pt:'Hipopótamo'},ft:{es:'El hipopótamo se baña en el río.',en:'The hippo bathes in the river.',pt:'O hipopótamo se banha no rio.'},ar:{es:'el',pt:'o'}},
+ {n:56,key:'gorila',emoji:'🦍',accent:'var(--c1)',tint:'#FFE3EC',nm:{es:'Gorila',en:'Gorilla',pt:'Gorila'},ft:{es:'El gorila es fuerte y vive en la selva.',en:'The gorilla is strong and lives in the jungle.',pt:'O gorila é forte e vive na selva.'},ar:{es:'el',pt:'o'}},
+ {n:57,key:'panda',emoji:'🐼',accent:'var(--c2)',tint:'#FFEFD6',nm:{es:'Panda',en:'Panda',pt:'Panda'},ft:{es:'El panda come bambú todo el día.',en:'The panda eats bamboo all day.',pt:'O panda come bambu o dia todo.'},ar:{es:'el',pt:'o'}},
+ {n:58,key:'koala',emoji:'🐨',accent:'var(--c3)',tint:'#D7F6F0',nm:{es:'Koala',en:'Koala',pt:'Coala'},ft:{es:'El koala duerme en los árboles.',en:'The koala sleeps in the trees.',pt:'O coala dorme nas árvores.'},ar:{es:'el',pt:'o'}},
+ {n:59,key:'canguro',emoji:'🦘',accent:'var(--c4)',tint:'#E1ECFF',nm:{es:'Canguro',en:'Kangaroo',pt:'Canguru'},ft:{es:'El canguro salta y lleva a su bebé.',en:'The kangaroo hops and carries its baby.',pt:'O canguru pula e carrega o filhote.'},ar:{es:'el',pt:'o'}},
+ {n:60,key:'perezoso',emoji:'🦥',accent:'var(--c5)',tint:'#EEE5FF',nm:{es:'Perezoso',en:'Sloth',pt:'Preguiça'},ft:{es:'El perezoso se mueve muy lentito.',en:'The sloth moves very slowly.',pt:'A preguiça se move bem devagar.'},ar:{es:'el',pt:'a'}},
+ {n:61,key:'mapache',emoji:'🦝',accent:'var(--c1)',tint:'#FFE3EC',nm:{es:'Mapache',en:'Raccoon',pt:'Guaxinim'},ft:{es:'El mapache tiene antifaz en la cara.',en:'The raccoon has a mask on its face.',pt:'O guaxinim tem uma máscara no rosto.'},ar:{es:'el',pt:'o'}},
+ {n:62,key:'nutria',emoji:'🦦',accent:'var(--c2)',tint:'#FFEFD6',nm:{es:'Nutria',en:'Otter',pt:'Lontra'},ft:{es:'La nutria nada y juega en el agua.',en:'The otter swims and plays in the water.',pt:'A lontra nada e brinca na água.'},ar:{es:'la',pt:'a'}},
+ {n:63,key:'castor',emoji:'🦫',accent:'var(--c3)',tint:'#D7F6F0',nm:{es:'Castor',en:'Beaver',pt:'Castor'},ft:{es:'El castor hace presas con palitos.',en:'The beaver builds dams with sticks.',pt:'O castor faz represas com gravetos.'},ar:{es:'el',pt:'o'}},
+ {n:64,key:'erizo',emoji:'🦔',accent:'var(--c4)',tint:'#E1ECFF',nm:{es:'Erizo',en:'Hedgehog',pt:'Ouriço'},ft:{es:'El erizo tiene púas para protegerse.',en:'The hedgehog has spines to protect itself.',pt:'O ouriço tem espinhos para se proteger.'},ar:{es:'el',pt:'o'}},
+ {n:65,key:'murcielago',emoji:'🦇',accent:'var(--c5)',tint:'#EEE5FF',nm:{es:'Murciélago',en:'Bat',pt:'Morcego'},ft:{es:'El murciélago vuela de noche.',en:'The bat flies at night.',pt:'O morcego voa à noite.'},ar:{es:'el',pt:'o'}},
+ {n:66,key:'ciervo',emoji:'🦌',accent:'var(--c1)',tint:'#FFE3EC',nm:{es:'Ciervo',en:'Deer',pt:'Cervo'},ft:{es:'El ciervo tiene astas en la cabeza.',en:'The deer has antlers on its head.',pt:'O cervo tem galhadas na cabeça.'},ar:{es:'el',pt:'o'}},
+ {n:67,key:'alce',emoji:'🦌',accent:'var(--c2)',tint:'#FFEFD6',nm:{es:'Alce',en:'Moose',pt:'Alce'},ft:{es:'El alce es muy grande y vive en el bosque.',en:'The moose is very big and lives in the forest.',pt:'O alce é bem grande e vive na floresta.'},ar:{es:'el',pt:'o'}},
+ {n:68,key:'bisonte',emoji:'🦬',accent:'var(--c3)',tint:'#D7F6F0',nm:{es:'Bisonte',en:'Bison',pt:'Bisão'},ft:{es:'El bisonte es grande y peludo.',en:'The bison is big and furry.',pt:'O bisão é grande e peludo.'},ar:{es:'el',pt:'o'}},
+ {n:69,key:'jabali',emoji:'🐗',accent:'var(--c4)',tint:'#E1ECFF',nm:{es:'Jabalí',en:'Wild boar',pt:'Javali'},ft:{es:'El jabalí vive en el bosque.',en:'The wild boar lives in the forest.',pt:'O javali vive na floresta.'},ar:{es:'el',pt:'o'}},
+ {n:70,key:'leopardo',emoji:'🐆',accent:'var(--c5)',tint:'#EEE5FF',nm:{es:'Leopardo',en:'Leopard',pt:'Leopardo'},ft:{es:'El leopardo trepa árboles con sus manchas.',en:'The spotted leopard climbs trees.',pt:'O leopardo pintado sobe nas árvores.'},ar:{es:'el',pt:'o'}},
+ {n:71,key:'guepardo',emoji:'🐆',accent:'var(--c1)',tint:'#FFE3EC',nm:{es:'Guepardo',en:'Cheetah',pt:'Guepardo'},ft:{es:'El guepardo es el más veloz.',en:'The cheetah is the fastest of all.',pt:'O guepardo é o mais veloz.'},ar:{es:'el',pt:'o'}},
+ {n:72,key:'lince',emoji:'🐱',accent:'var(--c2)',tint:'#FFEFD6',nm:{es:'Lince',en:'Lynx',pt:'Lince'},ft:{es:'El lince tiene orejas con pelitos.',en:'The lynx has tufted ears.',pt:'O lince tem orelhas com tufos de pelo.'},ar:{es:'el',pt:'o'}},
+ {n:73,key:'pavo',emoji:'🦃',accent:'var(--c3)',tint:'#D7F6F0',nm:{es:'Pavo',en:'Turkey',pt:'Peru'},ft:{es:'El pavo abre sus plumas como abanico.',en:'The turkey fans out its feathers.',pt:'O peru abre as penas como leque.'},ar:{es:'el',pt:'o'}},
+ {n:74,key:'pavoreal',emoji:'🦚',accent:'var(--c4)',tint:'#E1ECFF',nm:{es:'Pavo real',en:'Peacock',pt:'Pavão'},ft:{es:'El pavo real tiene plumas hermosas.',en:'The peacock has beautiful feathers.',pt:'O pavão tem penas lindas.'},ar:{es:'el',pt:'o'}},
+ {n:75,key:'loro',emoji:'🦜',accent:'var(--c5)',tint:'#EEE5FF',nm:{es:'Loro',en:'Parrot',pt:'Papagaio'},ft:{es:'El loro repite palabras y tiene colores.',en:'The parrot repeats words and is colorful.',pt:'O papagaio repete palavras e é colorido.'},ar:{es:'el',pt:'o'}},
+ {n:76,key:'tucan',emoji:'🐦',accent:'var(--c1)',tint:'#FFE3EC',nm:{es:'Tucán',en:'Toucan',pt:'Tucano'},ft:{es:'El tucán tiene un pico grande y colorido.',en:'The toucan has a big, colorful beak.',pt:'O tucano tem um bico grande e colorido.'},ar:{es:'el',pt:'o'}},
+ {n:77,key:'flamenco',emoji:'🦩',accent:'var(--c2)',tint:'#FFEFD6',nm:{es:'Flamenco',en:'Flamingo',pt:'Flamingo'},ft:{es:'El flamenco es rosado y se para en una pata.',en:'The flamingo is pink and stands on one leg.',pt:'O flamingo é rosa e fica numa perna só.'},ar:{es:'el',pt:'o'}},
+ {n:78,key:'cisne',emoji:'🦢',accent:'var(--c3)',tint:'#D7F6F0',nm:{es:'Cisne',en:'Swan',pt:'Cisne'},ft:{es:'El cisne nada elegante en el lago.',en:'The swan swims gracefully on the lake.',pt:'O cisne nada elegante no lago.'},ar:{es:'el',pt:'o'}},
+ {n:79,key:'aguila',emoji:'🦅',accent:'var(--c4)',tint:'#E1ECFF',nm:{es:'Águila',en:'Eagle',pt:'Águia'},ft:{es:'El águila vuela muy alto.',en:'The eagle flies very high.',pt:'A águia voa bem alto.'},ar:{es:'el',pt:'a'}},
+ {n:80,key:'paloma',emoji:'🕊️',accent:'var(--c5)',tint:'#EEE5FF',nm:{es:'Paloma',en:'Pigeon',pt:'Pomba'},ft:{es:'La paloma vuela en la ciudad.',en:'The pigeon flies in the city.',pt:'A pomba voa na cidade.'},ar:{es:'la',pt:'a'}},
+ {n:81,key:'colibri',emoji:'🐦',accent:'var(--c1)',tint:'#FFE3EC',nm:{es:'Colibrí',en:'Hummingbird',pt:'Beija-flor'},ft:{es:'El colibrí es chiquito y vuela muy rápido.',en:'The hummingbird is tiny and flies very fast.',pt:'O beija-flor é pequenino e voa muito rápido.'},ar:{es:'el',pt:'o'}},
+ {n:82,key:'gaviota',emoji:'🐦',accent:'var(--c2)',tint:'#FFEFD6',nm:{es:'Gaviota',en:'Seagull',pt:'Gaivota'},ft:{es:'La gaviota vuela cerca del mar.',en:'The seagull flies near the sea.',pt:'A gaivota voa perto do mar.'},ar:{es:'la',pt:'a'}},
+ {n:83,key:'cuervo',emoji:'🐦',accent:'var(--c3)',tint:'#D7F6F0',nm:{es:'Cuervo',en:'Crow',pt:'Corvo'},ft:{es:'El cuervo es negro y muy listo.',en:'The crow is black and very clever.',pt:'O corvo é preto e muito esperto.'},ar:{es:'el',pt:'o'}},
+ {n:84,key:'golondrina',emoji:'🐦',accent:'var(--c4)',tint:'#E1ECFF',nm:{es:'Golondrina',en:'Swallow',pt:'Andorinha'},ft:{es:'La golondrina vuela y hace su nido.',en:'The swallow flies and builds its nest.',pt:'A andorinha voa e faz o ninho.'},ar:{es:'la',pt:'a'}},
+ {n:85,key:'abejorro',emoji:'🐝',accent:'var(--c5)',tint:'#EEE5FF',nm:{es:'Abejorro',en:'Bumblebee',pt:'Abelhão'},ft:{es:'El abejorro es grande y peludo.',en:'The bumblebee is big and fuzzy.',pt:'O abelhão é grande e peludo.'},ar:{es:'el',pt:'o'}},
+ {n:86,key:'grillo',emoji:'🦗',accent:'var(--c1)',tint:'#FFE3EC',nm:{es:'Grillo',en:'Cricket',pt:'Grilo'},ft:{es:'El grillo canta de noche.',en:'The cricket sings at night.',pt:'O grilo canta à noite.'},ar:{es:'el',pt:'o'}},
+ {n:87,key:'escarabajo',emoji:'🪲',accent:'var(--c2)',tint:'#FFEFD6',nm:{es:'Escarabajo',en:'Beetle',pt:'Besouro'},ft:{es:'El escarabajo tiene caparazón duro.',en:'The beetle has a hard shell.',pt:'O besouro tem uma casca dura.'},ar:{es:'el',pt:'o'}},
+ {n:88,key:'luciernaga',emoji:'✨',accent:'var(--c3)',tint:'#D7F6F0',nm:{es:'Luciérnaga',en:'Firefly',pt:'Vaga-lume'},ft:{es:'La luciérnaga brilla en la noche.',en:'The firefly glows in the night.',pt:'O vaga-lume brilha na noite.'},ar:{es:'la',pt:'o'}},
+ {n:89,key:'gusano',emoji:'🐛',accent:'var(--c4)',tint:'#E1ECFF',nm:{es:'Gusano',en:'Worm',pt:'Minhoca'},ft:{es:'El gusano vive en la tierra.',en:'The worm lives in the soil.',pt:'A minhoca vive na terra.'},ar:{es:'el',pt:'a'}},
+ {n:90,key:'lagartija',emoji:'🦎',accent:'var(--c5)',tint:'#EEE5FF',nm:{es:'Lagartija',en:'Lizard',pt:'Lagartixa'},ft:{es:'La lagartija toma el sol en las piedras.',en:'The lizard suns itself on the rocks.',pt:'A lagartixa toma sol nas pedras.'},ar:{es:'la',pt:'a'}},
+ {n:91,key:'iguana',emoji:'🦎',accent:'var(--c1)',tint:'#FFE3EC',nm:{es:'Iguana',en:'Iguana',pt:'Iguana'},ft:{es:'La iguana es verde y le gusta el calor.',en:'The iguana is green and loves the heat.',pt:'A iguana é verde e gosta do calor.'},ar:{es:'la',pt:'a'}},
+ {n:92,key:'camaleon',emoji:'🦎',accent:'var(--c2)',tint:'#FFEFD6',nm:{es:'Camaleón',en:'Chameleon',pt:'Camaleão'},ft:{es:'El camaleón cambia de color.',en:'The chameleon changes color.',pt:'O camaleão muda de cor.'},ar:{es:'el',pt:'o'}},
+ {n:93,key:'salamandra',emoji:'🦎',accent:'var(--c3)',tint:'#D7F6F0',nm:{es:'Salamandra',en:'Salamander',pt:'Salamandra'},ft:{es:'La salamandra vive en lugares húmedos.',en:'The salamander lives in damp places.',pt:'A salamandra vive em lugares úmidos.'},ar:{es:'la',pt:'a'}},
+ {n:94,key:'sapo',emoji:'🐸',accent:'var(--c4)',tint:'#E1ECFF',nm:{es:'Sapo',en:'Toad',pt:'Sapo'},ft:{es:'El sapo tiene la piel con bolitas.',en:'The toad has bumpy skin.',pt:'O sapo tem a pele cheia de bolinhas.'},ar:{es:'el',pt:'o'}},
+ {n:95,key:'ajolote',emoji:'🦎',accent:'var(--c5)',tint:'#EEE5FF',nm:{es:'Ajolote',en:'Axolotl',pt:'Axolote'},ft:{es:'El ajolote vive en el agua y sonríe.',en:'The axolotl lives in water and smiles.',pt:'O axolote vive na água e parece sorrir.'},ar:{es:'el',pt:'o'}},
+ {n:96,key:'langosta',emoji:'🦞',accent:'var(--c1)',tint:'#FFE3EC',nm:{es:'Langosta',en:'Lobster',pt:'Lagosta'},ft:{es:'La langosta vive en el mar y tiene pinzas.',en:'The lobster lives in the sea and has claws.',pt:'A lagosta vive no mar e tem pinças.'},ar:{es:'la',pt:'a'}},
+ {n:97,key:'camaron',emoji:'🦐',accent:'var(--c2)',tint:'#FFEFD6',nm:{es:'Camarón',en:'Shrimp',pt:'Camarão'},ft:{es:'El camarón es chiquito y vive en el agua.',en:'The shrimp is tiny and lives in the water.',pt:'O camarão é pequenino e vive na água.'},ar:{es:'el',pt:'o'}},
+ {n:98,key:'morsa',emoji:'🦭',accent:'var(--c3)',tint:'#D7F6F0',nm:{es:'Morsa',en:'Walrus',pt:'Morsa'},ft:{es:'La morsa tiene dos colmillos largos.',en:'The walrus has two long tusks.',pt:'A morsa tem duas presas compridas.'},ar:{es:'la',pt:'a'}},
+ {n:99,key:'orca',emoji:'🐳',accent:'var(--c4)',tint:'#E1ECFF',nm:{es:'Orca',en:'Orca',pt:'Orca'},ft:{es:'La orca es blanca y negra y nada en grupo.',en:'The orca is black and white and swims in groups.',pt:'A orca é preta e branca e nada em grupo.'},ar:{es:'la',pt:'a'}},
+ {n:100,key:'pezpayaso',emoji:'🐠',accent:'var(--c5)',tint:'#EEE5FF',nm:{es:'Pez payaso',en:'Clownfish',pt:'Peixe-palhaço'},ft:{es:'El pez payaso es naranja y vive en el coral.',en:'The clownfish is orange and lives in the coral.',pt:'O peixe-palhaço é laranja e vive no coral.'},ar:{es:'el',pt:'o'}}
 ];
 
 let muted=false;
-function artHTML(item){
-  if(IMG[item.key]) return '<img src="'+IMG[item.key]+'" alt="'+item.name+'">';
-  return '<span class="emoji">'+item.emoji+'</span>';
-}
+let LANG=(function(){try{return localStorage.getItem('animalitos_lang')||'es';}catch(e){return 'es';}})();
+if(['es','en','pt'].indexOf(LANG)<0) LANG='es';
+const FLAG={es:'🇪🇸',en:'🇬🇧',pt:'🇧🇷'};
+const UI={
+ es:{brand:"Animalitos y Números",startTitle:"¡A jugar!",startSub:"Elegí un idioma y tocá un animalito.",btnCount:"🔢 Contar",btnGuess:"🎈 Adivinar",back:"← Volver",again:"🔁 Otra vez",sound:"🔊 Su sonido",where:"¿Dónde está...",repeat:"Repetir",good:"¡Muy bien!",almost:"¡Casi! Busca",muteOn:"Silenciar",muteOff:"Activar sonido",brandWith:n=>n+" y los números",startWith:n=>"Los animalitos de "+n},
+ en:{brand:"Animals & Numbers",startTitle:"Let's play!",startSub:"Pick a language and tap an animal.",btnCount:"🔢 Count",btnGuess:"🎈 Guess",back:"← Back",again:"🔁 Again",sound:"🔊 Its sound",where:"Where is...",repeat:"Repeat",good:"Great job!",almost:"Almost! Find the",muteOn:"Mute",muteOff:"Unmute",brandWith:n=>n+" & numbers",startWith:n=>n+"'s animals"},
+ pt:{brand:"Animais e Números",startTitle:"Vamos brincar!",startSub:"Escolha um idioma e toque num animal.",btnCount:"🔢 Contar",btnGuess:"🎈 Adivinhar",back:"← Voltar",again:"🔁 De novo",sound:"🔊 O som",where:"Onde está...",repeat:"Repetir",good:"Muito bem!",almost:"Quase! Procure",muteOn:"Silenciar",muteOff:"Ativar som",brandWith:n=>n+" e os números",startWith:n=>"Os animais de "+n}
+};
+const NAME_OK=(typeof NOMBRE!=='undefined'&&NOMBRE&&NOMBRE.trim())?NOMBRE.trim():'';
 
-/* ---------- speech ---------- */
-let voicePicked=null;
+function artHTML(item){ if(IMG[item.key]) return '<img src="'+IMG[item.key]+'" alt="'+item.nm[LANG]+'">'; return '<span class="emoji">'+item.emoji+'</span>'; }
+
+/* ---- speech ---- */
+let voicePicked={};
+const VPREF={es:['es-mx','es-us','es-419','es-co','es-cr','es-es','es'],en:['en-us','en-gb','en-au','en'],pt:['pt-br','pt-pt','pt']};
 function pickVoice(){
-  if(voicePicked) return voicePicked;
-  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
-  const pref=['es-cr','es-mx','es-us','es-419','es-co','es-es','es'];
-  for(const p of pref){ const v=vs.find(v=>v.lang&&v.lang.toLowerCase().startsWith(p)); if(v){voicePicked=v;return v;} }
+  if(voicePicked[LANG]) return voicePicked[LANG];
+  const vs=window.speechSynthesis?speechSynthesis.getVoices():[];
+  for(const p of VPREF[LANG]){ const v=vs.find(v=>v.lang&&v.lang.toLowerCase().replace('_','-').indexOf(p)===0); if(v){voicePicked[LANG]=v;return v;} }
+  const a=vs.find(v=>v.lang&&v.lang.toLowerCase().indexOf(LANG)===0); if(a){voicePicked[LANG]=a;return a;}
   return null;
 }
 let speakToken=0;
-function cancelSpeech(){ speakToken++; try{ speechSynthesis.cancel(); }catch(e){} }
-function speak(text, cb){
-  if(muted || !('speechSynthesis' in window)){ if(cb) setTimeout(cb,250); return; }
-  const my=speakToken; let done=false;
-  const go=()=>{ if(done)return; done=true; if(my===speakToken && cb) cb(); };
+function cancelSpeech(){ speakToken++; try{speechSynthesis.cancel();}catch(e){} }
+function speak(text,cb){
+  if(muted||!('speechSynthesis' in window)){ if(cb) setTimeout(cb,250); return; }
+  const my=speakToken; let done=false; const go=()=>{ if(done)return; done=true; if(my===speakToken&&cb)cb(); };
   try{
-    const u=new SpeechSynthesisUtterance(text);
-    const v=pickVoice(); if(v) u.voice=v;
-    u.lang=(v&&v.lang)||'es-ES'; u.rate=.95; u.pitch=1.12;
-    u.onend=go; u.onerror=go;
-    speechSynthesis.speak(u);
-    setTimeout(go, Math.max(1100, 400 + text.length*95));
+    const u=new SpeechSynthesisUtterance(text); const v=pickVoice(); if(v)u.voice=v;
+    u.lang=(v&&v.lang)||(LANG==='en'?'en-US':LANG==='pt'?'pt-BR':'es-ES'); u.rate=.95; u.pitch=1.12;
+    u.onend=go; u.onerror=go; speechSynthesis.speak(u);
+    setTimeout(go, Math.max(1100, 400+text.length*95));
   }catch(e){ go(); }
 }
 
-/* ---------- real sound ---------- */
+/* ---- audio (iOS unlock + completion) ---- */
 let curAudio=null, audioUnlocked=false;
 const SILENT="data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjYwLjE2LjEwMAAAAAAAAAAAAAAA//NwwAAAAAAAAAAAAEluZm8AAAAPAAAABwAAA5EAUFBQUFBQUFBQUFBQUFBtbW1tbW1tbW1tbW1tbYqKioqKioqKioqKioqKqKioqKioqKioqKioqKioxcXFxcXFxcXFxcXFxcXi4uLi4uLi4uLi4uLi4v//////////////////AAAAAExhdmM2MC4zMQAAAAAAAAAAAAAAACQDKgAAAAAAAAORy3JmoQAAAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NCxKMAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NAxKQAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80LEowAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/80DEpAAAA0gAAAAAVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ==";
 function unlockAudio(){
@@ -514,35 +526,18 @@ function unlockAudio(){
   try{ const a=new Audio(SILENT); a.volume=0; const p=a.play(); if(p&&p.then){ p.then(()=>{audioUnlocked=true;}).catch(()=>{}); } else { audioUnlocked=true; } }catch(e){}
 }
 function stopAudio(){ if(curAudio){ try{curAudio.pause();}catch(e){} curAudio=null; } }
-function playSound(item, cb){
-  if(muted || !REAL[item.key]){ if(cb) setTimeout(cb,120); return; }
+function playSound(item,cb){
+  if(muted||!REAL[item.key]){ if(cb) setTimeout(cb,120); return; }
   try{
-    stopAudio();
-    const a=new Audio(REAL[item.key]); curAudio=a; a.volume=1;
-    let done=false; const go=()=>{ if(done)return; done=true; if(cb) cb(); };
+    stopAudio(); const a=new Audio(REAL[item.key]); curAudio=a; a.volume=1;
+    let done=false; const go=()=>{ if(done)return; done=true; if(cb)cb(); };
     a.onended=go; a.onerror=go;
     a.play().then(()=>{ const d=(isFinite(a.duration)&&a.duration>0)?a.duration*1000+250:3500; setTimeout(go,d); }).catch(()=>go());
-  }catch(e){ if(cb) cb(); }
+  }catch(e){ if(cb)cb(); }
 }
 
-/* ---------- grid ---------- */
+/* ---- elements ---- */
 const grid=document.getElementById('grid');
-function render(){
-  grid.innerHTML='';
-  ANIMALES.forEach(item=>{
-    const c=document.createElement('button');
-    c.className='card'; c.type='button';
-    c.style.setProperty('--tint', item.tint);
-    c.style.setProperty('--accent', item.accent);
-    c.innerHTML='<span class="num">'+item.n+'</span><div class="art">'+artHTML(item)+'</div><div class="name">'+item.name+'</div>';
-    c.addEventListener('click', ()=>{ unlockAudio(); pop(c); openCount(item); });
-    grid.appendChild(c);
-  });
-}
-function pop(el){ if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
-
-/* ---------- count overlay ---------- */
 const scrim=document.getElementById('scrim');
 const bignum=document.getElementById('bignum');
 const heroArt=document.getElementById('heroArt');
@@ -550,133 +545,131 @@ const countTitle=document.getElementById('countTitle');
 const dotsBox=document.getElementById('dots');
 const factBox=document.getElementById('fact');
 const sheet=document.getElementById('sheet');
-let current=null, runToken=0;
-
-function openCount(item){
-  current=item;
-  bignum.textContent=item.n;
-  bignum.style.setProperty('--accent', item.accent);
-  sheet.style.setProperty('--accent', item.accent);
-  heroArt.innerHTML=artHTML(item);
-  countTitle.innerHTML='<span class="nm">'+item.n+'</span> '+(item.n===1?item.name.toLowerCase():item.plural);
-  factBox.textContent=item.fact;
-  dotsBox.innerHTML='';
-  const dp = item.n>72?20 : item.n>48?24 : item.n>30?30 : item.n>20?38 : 50;
-  dotsBox.style.setProperty('--dot', dp+'px');
-  dotsBox.style.gap = item.n>30?'6px':'10px';
-  for(let i=0;i<item.n;i++){ const d=document.createElement('div'); d.className='item'; d.innerHTML=artHTML(item); dotsBox.appendChild(d); }
-  scrim.classList.add('show'); scrim.setAttribute('aria-hidden','false');
-  startCount();
-}
-function closeCount(){
-  runToken++; cancelSpeech(); if(curAudio){ try{curAudio.pause();}catch(e){} }
-  scrim.classList.remove('show'); scrim.setAttribute('aria-hidden','true'); current=null;
-}
-function finish(item, my){
-  speak(NUMS[item.n], ()=>{
-    if(my!==runToken) return;
-    playSound(item, ()=>{
-      if(my!==runToken) return;
-      setTimeout(()=>{ if(my===runToken) speak(item.fact); }, 320);
-    });
-  });
-}
-function startCount(){
-  const item=current; if(!item) return;
-  const my=++runToken; cancelSpeech(); stopAudio();
-  dotsBox.querySelectorAll('.item').forEach(d=>d.classList.add('on'));
-  finish(item, my);
-}
-function skipToEnd(){
-  const item=current; if(!item) return;
-  const my=++runToken; cancelSpeech();
-  dotsBox.querySelectorAll('.item').forEach(d=>d.classList.add('on'));
-  finish(item,my);
-}
-
-dotsBox.addEventListener('click', skipToEnd);
-document.getElementById('againBtn').addEventListener('click', startCount);
-document.getElementById('soundBtn').addEventListener('click', ()=>{
-  if(!current) return; unlockAudio(); cancelSpeech(); stopAudio();
-  if(REAL[current.key]) playSound(current); else speak(current.name);
-});
-document.getElementById('backBtn').addEventListener('click', closeCount);
-scrim.addEventListener('click', (e)=>{ if(e.target===scrim) closeCount(); });
-
-/* ---------- mute ---------- */
 const muteBtn=document.getElementById('mute');
-muteBtn.addEventListener('click', ()=>{
-  muted=!muted;
-  if(muted){ cancelSpeech(); if(curAudio){ try{curAudio.pause();}catch(e){} } }
-  muteBtn.textContent = muted ? '🔇' : '🔊';
-  muteBtn.setAttribute('aria-label', muted ? 'Activar sonido':'Silenciar');
-});
-
-/* ---------- start ---------- */
-if(NOMBRE && NOMBRE.trim()){
-  document.getElementById('startTitle').textContent='Los animalitos de '+NOMBRE.trim();
-  document.getElementById('brandTitle').textContent=NOMBRE.trim()+' y los números';
-}
 const startEl=document.getElementById('start');
-document.getElementById('playBtn').addEventListener('click', ()=>{
-  unlockAudio();
-  try{ const u=new SpeechSynthesisUtterance(' '); speechSynthesis.speak(u); }catch(e){}
-  pickVoice();
-  startEl.classList.add('hide'); setTimeout(()=>{ startEl.style.display='none'; }, 460);
-});
-if('speechSynthesis' in window){ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{ voicePicked=null; pickVoice(); }; }
-
-render();
-
-/* ---------- juego de adivinanzas ---------- */
 const gameEl=document.getElementById('game');
 const gameName=document.getElementById('gameName');
 const gameChoices=document.getElementById('gameChoices');
 const gameMsg=document.getElementById('gameMsg');
 const gameScore=document.getElementById('gameScore');
+let current=null, runToken=0;
 let gScore=0, gTarget=null, gBusy=false, gToken=0;
+
+/* ---- i18n apply ---- */
+function setText(id,t){ const e=document.getElementById(id); if(e) e.textContent=t; }
+function applyUI(){
+  const u=UI[LANG];
+  setText('brandTitle', NAME_OK?u.brandWith(NAME_OK):u.brand);
+  setText('startTitle', NAME_OK?u.startWith(NAME_OK):u.startTitle);
+  setText('startSub', u.startSub);
+  setText('playBtn', u.btnCount);
+  setText('guessBtn', u.btnGuess);
+  setText('backBtn', u.back);
+  setText('againBtn', u.again);
+  setText('soundBtn', u.sound);
+  setText('gameBack', u.back);
+  setText('gameLab', u.where);
+  const gs=document.getElementById('gameSay'); if(gs) gs.setAttribute('aria-label',u.repeat);
+  const lb=document.getElementById('langBtn'); if(lb) lb.textContent=FLAG[LANG];
+  if(muteBtn){ muteBtn.textContent=muted?'🔇':'🔊'; muteBtn.setAttribute('aria-label', muted?u.muteOff:u.muteOn); }
+  document.querySelectorAll('.langflag').forEach(b=>b.classList.toggle('on', b.dataset.l===LANG));
+  if(current){ countTitle.textContent=current.nm[LANG]; factBox.textContent=current.ft[LANG]; }
+  if(gTarget && gameEl.classList.contains('show')){ gameName.textContent=gTarget.nm[LANG]; }
+}
+function setLang(l){ if(!UI[l])return; LANG=l; try{localStorage.setItem('animalitos_lang',l);}catch(e){} voicePicked={}; cancelSpeech(); applyUI(); render(); }
+
+/* ---- grid ---- */
+function render(){
+  grid.innerHTML='';
+  ANIMALES.forEach(item=>{
+    const c=document.createElement('button'); c.className='card'; c.type='button';
+    c.style.setProperty('--tint',item.tint); c.style.setProperty('--accent',item.accent);
+    c.innerHTML='<span class="num">'+item.n+'</span><div class="art">'+artHTML(item)+'</div><div class="name">'+item.nm[LANG]+'</div>';
+    c.addEventListener('click', ()=>{ unlockAudio(); pop(c); openCount(item); });
+    grid.appendChild(c);
+  });
+}
+function pop(el){ if(matchMedia('(prefers-reduced-motion: reduce)').matches)return; el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
+
+/* ---- count overlay (say only the number) ---- */
+function openCount(item){
+  current=item; bignum.textContent=item.n;
+  bignum.style.setProperty('--accent',item.accent); sheet.style.setProperty('--accent',item.accent);
+  heroArt.innerHTML=artHTML(item);
+  countTitle.textContent=item.nm[LANG]; factBox.textContent=item.ft[LANG];
+  dotsBox.innerHTML='';
+  const dp=item.n>72?20:item.n>48?24:item.n>30?30:item.n>20?38:50;
+  dotsBox.style.setProperty('--dot',dp+'px'); dotsBox.style.gap=item.n>30?'6px':'10px';
+  for(let i=0;i<item.n;i++){ const d=document.createElement('div'); d.className='item'; d.innerHTML=artHTML(item); dotsBox.appendChild(d); }
+  scrim.classList.add('show'); scrim.setAttribute('aria-hidden','false');
+  startCount();
+}
+function closeCount(){ runToken++; cancelSpeech(); stopAudio(); scrim.classList.remove('show'); scrim.setAttribute('aria-hidden','true'); current=null; }
+function finish(item,my){
+  speak(NUM[LANG][item.n], ()=>{
+    if(my!==runToken)return;
+    playSound(item, ()=>{ if(my!==runToken)return; setTimeout(()=>{ if(my===runToken) speak(item.ft[LANG]); },320); });
+  });
+}
+function startCount(){
+  const item=current; if(!item)return;
+  const my=++runToken; cancelSpeech(); stopAudio();
+  dotsBox.querySelectorAll('.item').forEach(d=>d.classList.add('on'));
+  finish(item,my);
+}
+dotsBox.addEventListener('click', startCount);
+document.getElementById('againBtn').addEventListener('click', startCount);
+document.getElementById('soundBtn').addEventListener('click', ()=>{ if(!current)return; unlockAudio(); cancelSpeech(); stopAudio(); if(REAL[current.key]) playSound(current); else speak(current.nm[LANG]); });
+document.getElementById('backBtn').addEventListener('click', closeCount);
+scrim.addEventListener('click', e=>{ if(e.target===scrim) closeCount(); });
+
+/* ---- guessing game ---- */
 const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
-const gArt=a=>(a.art||'el');
+function gPrompt(a){ const nm=a.nm[LANG].toLowerCase(); if(LANG==='en')return 'Where is the '+nm+'?'; if(LANG==='pt')return 'Onde está '+a.ar.pt+' '+nm+'?'; return '¿Dónde está '+a.ar.es+' '+nm+'?'; }
+function gGood(a){ const nm=a.nm[LANG].toLowerCase(); if(LANG==='en')return UI.en.good+' The '+nm; if(LANG==='pt')return UI.pt.good+' '+cap(a.ar.pt)+' '+nm; return UI.es.good+' '+cap(a.ar.es)+' '+nm; }
+function gAlmost(a){ const nm=a.nm[LANG].toLowerCase(); if(LANG==='en')return UI.en.almost+' '+nm; if(LANG==='pt')return UI.pt.almost+' '+a.ar.pt+' '+nm; return UI.es.almost+' '+a.ar.es+' '+nm; }
 function gNewRound(){
   const my=++gToken; gBusy=false; cancelSpeech(); stopAudio();
-  const pool=ANIMALES;
-  const t=pool[Math.floor(Math.random()*pool.length)]; gTarget=t;
-  const used=new Set([t.key]); const others=[];
-  while(others.length<2){ const c=pool[Math.floor(Math.random()*pool.length)]; if(!used.has(c.key)){ used.add(c.key); others.push(c); } }
-  const choices=[t,...others].sort(()=>Math.random()-0.5);
-  gameName.textContent=t.name; gameMsg.textContent='';
+  const t=ANIMALES[Math.floor(Math.random()*ANIMALES.length)]; gTarget=t;
+  const used={}; used[t.key]=1; const others=[];
+  while(others.length<2){ const c=ANIMALES[Math.floor(Math.random()*ANIMALES.length)]; if(!used[c.key]){ used[c.key]=1; others.push(c);} }
+  const choices=[t].concat(others).sort(()=>Math.random()-0.5);
+  gameName.textContent=t.nm[LANG]; gameMsg.textContent='';
   gameChoices.innerHTML='';
-  choices.forEach(c=>{
-    const b=document.createElement('button'); b.className='gchoice'; b.type='button';
-    b.innerHTML=artHTML(c);
-    b.addEventListener('click', ()=>gPick(c,b,my));
-    gameChoices.appendChild(b);
-  });
-  gSay();
+  choices.forEach(c=>{ const b=document.createElement('button'); b.className='gchoice'; b.type='button'; b.innerHTML=artHTML(c); b.addEventListener('click', ()=>gPick(c,b,my)); gameChoices.appendChild(b); });
+  speak(gPrompt(t));
 }
-function gSay(){ if(gTarget) speak('¿Dónde está '+gArt(gTarget)+' '+gTarget.name.toLowerCase()+'?'); }
 function gPick(c,b,my){
-  if(gBusy || my!==gToken) return;
+  if(gBusy||my!==gToken)return;
   if(c.key===gTarget.key){
-    gBusy=true; b.classList.add('correct');
-    gScore++; gameScore.textContent='⭐ '+gScore;
-    gameMsg.textContent='¡Muy bien! '+cap(gArt(gTarget))+' '+gTarget.name.toLowerCase();
-    [...gameChoices.children].forEach(x=>{ x.disabled=true; if(x!==b) x.classList.add('dim'); });
-    speak('¡Muy bien!', ()=>{ if(my===gToken) playSound(gTarget); });
+    gBusy=true; b.classList.add('correct'); gScore++; gameScore.textContent='⭐ '+gScore;
+    gameMsg.textContent=gGood(gTarget);
+    var ch=gameChoices.children; for(var i=0;i<ch.length;i++){ ch[i].disabled=true; if(ch[i]!==b) ch[i].classList.add('dim'); }
+    speak(UI[LANG].good, ()=>{ if(my===gToken) playSound(gTarget); });
     setTimeout(()=>{ if(my===gToken && gameEl.classList.contains('show')) gNewRound(); }, 2300);
   } else {
-    b.classList.add('wrong'); b.disabled=true;
-    gameMsg.textContent='¡Casi! Busca '+gArt(gTarget)+' '+gTarget.name.toLowerCase();
-    speak('¡Casi! Busca '+gArt(gTarget)+' '+gTarget.name.toLowerCase());
+    b.classList.add('wrong'); b.disabled=true; gameMsg.textContent=gAlmost(gTarget); speak(gAlmost(gTarget));
     setTimeout(()=>{ b.classList.remove('wrong'); }, 480);
   }
 }
-function openGame(){ unlockAudio(); gScore=0; gameScore.textContent='⭐ 0'; gameEl.classList.add('show'); gameEl.setAttribute('aria-hidden','false'); gNewRound(); }
+function openGame(){ unlockAudio(); pickVoice(); gScore=0; gameScore.textContent='⭐ 0'; gameEl.classList.add('show'); gameEl.setAttribute('aria-hidden','false'); gNewRound(); }
 function closeGame(){ gToken++; cancelSpeech(); stopAudio(); gameEl.classList.remove('show'); gameEl.setAttribute('aria-hidden','true'); }
-document.getElementById('guessBtn').addEventListener('click', ()=>{ unlockAudio(); pickVoice(); startEl.classList.add('hide'); setTimeout(()=>{ startEl.style.display='none'; }, 460); openGame(); });
+
+/* ---- mute / language / start ---- */
+muteBtn.addEventListener('click', ()=>{ muted=!muted; if(muted){ cancelSpeech(); stopAudio(); } muteBtn.textContent=muted?'🔇':'🔊'; muteBtn.setAttribute('aria-label', muted?UI[LANG].muteOff:UI[LANG].muteOn); });
+const LANGS=['es','en','pt'];
+document.getElementById('langBtn').addEventListener('click', ()=>{ unlockAudio(); setLang(LANGS[(LANGS.indexOf(LANG)+1)%3]); });
+document.querySelectorAll('.langflag').forEach(b=>{ b.addEventListener('click', ()=>{ unlockAudio(); setLang(b.dataset.l); }); });
+document.getElementById('playBtn').addEventListener('click', ()=>{ unlockAudio(); try{ const u=new SpeechSynthesisUtterance(' '); speechSynthesis.speak(u);}catch(e){} pickVoice(); startEl.classList.add('hide'); setTimeout(()=>{ startEl.style.display='none'; },460); });
+document.getElementById('guessBtn').addEventListener('click', ()=>{ unlockAudio(); pickVoice(); startEl.classList.add('hide'); setTimeout(()=>{ startEl.style.display='none'; },460); openGame(); });
 document.getElementById('gameBtn').addEventListener('click', openGame);
 document.getElementById('gameBack').addEventListener('click', closeGame);
-document.getElementById('gameSay').addEventListener('click', ()=>{ unlockAudio(); gSay(); });
+document.getElementById('gameSay').addEventListener('click', ()=>{ unlockAudio(); if(gTarget) speak(gPrompt(gTarget)); });
+if('speechSynthesis' in window){ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{ voicePicked={}; pickVoice(); }; }
+
+applyUI();
+render();
+
 </script>
 </body>
 </html>
