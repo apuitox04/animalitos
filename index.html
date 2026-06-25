@@ -250,7 +250,7 @@
 <div class="wrap">
   <header>
     <div class="brand"><span class="dot">🐾</span><h1 id="brandTitle">Animalitos y Números</h1></div>
-    <div class="hbtns"><button id="langBtn" class="icon-btn" aria-label="Idioma">🇪🇸</button><button id="gameBtn" class="icon-btn" aria-label="Juego">🎮</button><button id="mute" class="icon-btn" aria-label="Silenciar">🔊</button></div>
+    <div class="hbtns"><button id="homeBtn" class="icon-btn" aria-label="Inicio">🏠</button><button id="langBtn" class="icon-btn" aria-label="Idioma">🇪🇸</button><button id="gameBtn" class="icon-btn" aria-label="Juego">🎮</button><button id="mute" class="icon-btn" aria-label="Silenciar">🔊</button></div>
   </header>
   <div id="grid" class="grid"></div>
 </div>
@@ -308,17 +308,9 @@
     <div class="mbar"><button class="mback" id="mClose">← Volver</button><button class="micon mlang" aria-label="Idioma">🇪🇸</button></div>
     <div class="mhero"><h1 class="mtitle" id="mTitle">Matemática</h1><p class="msub" id="mSub">Aprender jugando</p></div>
     <div class="mdoors">
-      <button class="mdoor d1" id="mDoorNum"><span class="em">🔢</span><span><span class="t" id="mdNum">Los números</span><span class="s" id="mdNumS">Contar del 1 al 10</span></span></button>
       <button class="mdoor d2" id="mDoorAdd"><span class="em">🐶</span><span><span class="t" id="mdAdd">Aprender a sumar</span><span class="s" id="mdAddS">¿Qué es una suma?</span></span></button>
       <button class="mdoor d3" id="mDoorPlay"><span class="em">🎈</span><span><span class="t" id="mdPlay">Jugar</span><span class="s" id="mdPlayS">Contar y sumar</span></span></button>
     </div>
-  </section>
-  <section class="msec" id="mNumbers">
-    <div class="mbar"><button class="mback mtohome">← Volver</button></div>
-    <div class="mbig" id="mBig">1</div>
-    <div class="mobjrow" id="mNumObjs"></div>
-    <div class="mdots" id="mNumDots"></div>
-    <button class="mbtn" id="mNext">Siguiente ▶</button>
   </section>
   <section class="msec" id="mLesson">
     <div class="mbar"><button class="mback mtohome">← Volver</button></div>
@@ -808,15 +800,6 @@ function openMath(){ unlockAudio(); pickVoice(); mathApplyUI(); Mq('math').class
 function closeMath(){ mStop(); Mq('math').classList.remove('open'); Mq('math').setAttribute('aria-hidden','true'); const s=document.getElementById('start'); if(s){ s.style.display=''; s.classList.remove('hide'); } }
 function msec(id){ mStop(); document.querySelectorAll('#math .msec').forEach(s=>s.classList.remove('on')); Mq(id).classList.add('on'); }
 
-/* Los números */
-let mNumN=1,mNumTok=0;
-function openNumbers(){ mNumN=1; msec('mNumbers'); showNum(); }
-function showNum(){ const my=++mNumTok; pickKey(); const big=Mq('mBig'); big.textContent=mNumN; big.style.setProperty('--nc',mColor(mNumN)); big.classList.remove('pop'); void big.offsetWidth; big.classList.add('pop');
-  let o=''; for(let i=0;i<mNumN;i++)o+='<span class="mobj in" style="animation-delay:'+(i*0.1)+'s"><img src="'+IMG[mKey]+'" alt=""></span>'; Mq('mNumObjs').innerHTML=o;
-  let d=''; for(let i=1;i<=10;i++)d+='<span class="mdot'+(i<=mNumN?' on':'')+'"></span>'; Mq('mNumDots').innerHTML=d;
-  mCountAloud(mNumN, ()=>{ if(my!==mNumTok)return; speak(mWord(mNumN), ()=>{ if(my===mNumTok) mSound(); }); });
-}
-
 /* Aprender a sumar */
 const MAEX=[[1,1],[2,1],[1,2],[2,2],[3,1],[2,3],[1,3],[3,2]]; let mAi=0,mAtok=0;
 function openLesson(){ mAi=0; msec('mLesson'); runLesson(); }
@@ -880,21 +863,17 @@ function mPick(v,b,my){ if(mBusy||my!==mTok)return;
 function mathApplyUI(){ const u=MUI[LANG];
   const mb=document.getElementById('mathBtn'); if(mb)mb.textContent=u.btn;
   Mq('mTitle').textContent=u.title; Mq('mSub').textContent=u.sub;
-  Mq('mdNum').textContent=u.dNum; Mq('mdNumS').textContent=u.dNumS; Mq('mdAdd').textContent=u.dAdd; Mq('mdAddS').textContent=u.dAddS; Mq('mdPlay').textContent=u.dPlay; Mq('mdPlayS').textContent=u.dPlayS;
-  Mq('mNext').textContent=u.next; Mq('mAgain').textContent=u.again; Mq('mPlayFromLesson').textContent=u.play;
+  Mq('mdAdd').textContent=u.dAdd; Mq('mdAddS').textContent=u.dAddS; Mq('mdPlay').textContent=u.dPlay; Mq('mdPlayS').textContent=u.dPlayS;
+  Mq('mAgain').textContent=u.again; Mq('mPlayFromLesson').textContent=u.play;
   Mq('mmCount').textContent=u.count; Mq('mmAdd').textContent=u.add; Mq('mmSub').textContent=u.sub; Mq('mClose').textContent=u.back;
   document.querySelectorAll('#math .mtohome,#mGameBack').forEach(b=>b.textContent=u.back);
   document.querySelectorAll('[data-mlvl]').forEach(b=>{ b.textContent=({1:u.easy,2:u.mid,3:u.hard})[+b.dataset.mlvl]; b.classList.toggle('on',+b.dataset.mlvl===mLevel); });
   document.querySelectorAll('#math .mlang').forEach(b=>b.textContent=({es:'🇪🇸',en:'🇬🇧',pt:'🇧🇷'})[LANG]);
 }
-document.getElementById('mDoorNum').addEventListener('click',openNumbers);
 document.getElementById('mDoorAdd').addEventListener('click',openLesson);
 document.getElementById('mDoorPlay').addEventListener('click',openPlayMenu);
 document.getElementById('mClose').addEventListener('click',closeMath);
 document.querySelectorAll('#math .mtohome').forEach(b=>b.addEventListener('click',()=>{ msec('mHome'); }));
-document.getElementById('mNext').addEventListener('click',()=>{ unlockAudio(); mNumN=mNumN>=10?1:mNumN+1; showNum(); });
-document.getElementById('mBig').addEventListener('click',()=>{ unlockAudio(); showNum(); });
-document.getElementById('mNumObjs').addEventListener('click',()=>{ unlockAudio(); showNum(); });
 document.getElementById('mAgain').addEventListener('click',()=>{ unlockAudio(); mAi++; runLesson(); });
 document.getElementById('mPlayFromLesson').addEventListener('click',()=>{ unlockAudio(); openPlay('add'); });
 document.getElementById('mModeCount').addEventListener('click',()=>openPlay('count'));
@@ -904,6 +883,7 @@ document.getElementById('mGameBack').addEventListener('click',()=>{ mTok++; msec
 document.getElementById('mSay').addEventListener('click',()=>{ unlockAudio(); speak(mQText()); });
 document.querySelectorAll('[data-mlvl]').forEach(b=>b.addEventListener('click',()=>{ unlockAudio(); mLevel=+b.dataset.mlvl; try{localStorage.setItem('mate_level',mLevel);}catch(e){} mathApplyUI(); if(Mq('mGame').classList.contains('on'))mNewQ(); }));
 document.querySelectorAll('#math .mlang').forEach(b=>b.addEventListener('click',()=>{ unlockAudio(); const L=['es','en','pt']; setLang(L[(L.indexOf(LANG)+1)%3]); }));
+var homeBtnEl=document.getElementById('homeBtn'); if(homeBtnEl) homeBtnEl.addEventListener('click', function(){ try{cancelSpeech();stopAudio();}catch(e){} var s=document.getElementById('start'); if(s){ s.style.display=''; s.classList.remove('hide'); } });
 var mathBtnEl=document.getElementById('mathBtn'); if(mathBtnEl) mathBtnEl.addEventListener('click', ()=>{ const s=document.getElementById('start'); if(s){ s.classList.add('hide'); setTimeout(()=>{ s.style.display='none'; },420);} openMath(); });
 (function(){ var _sl=setLang; setLang=function(l){ _sl(l); try{mathApplyUI();}catch(e){} }; })();
 mUpdateScore(); mathApplyUI();
